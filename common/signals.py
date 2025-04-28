@@ -11,7 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class AbstractModelSignalHandler[T: AbstractBaseModel](ABC):
 
     @abstractmethod
-    def __call__(self, sender: type[T], **kwargs: Any) -> None: ...
+    def __call__(self, sender: T, **kwargs: Any) -> None: ...
 
 
 @dataclass(frozen=True)
@@ -20,7 +20,7 @@ class DeleteAssociatedFilesOnModelDelete[T: AbstractBaseModel](AbstractModelSign
     target_file_fields: tuple[str, ...]
 
 
-    def __call__(self, sender: type[T], **kwargs: Any) -> None:
+    def __call__(self, sender: T, **kwargs: Any) -> None:
         instance = cast(T, kwargs['instance'])
 
         for field in instance._meta.get_fields():
@@ -35,7 +35,7 @@ class DeleteAssociatedOldFilesOnModelUpdate[T: AbstractBaseModel](AbstractModelS
     target_file_fields: tuple[str, ...]
 
 
-    def __call__(self, sender: type[T], **kwargs: Any) -> None:
+    def __call__(self, sender: T, **kwargs: Any) -> None:
         instance = cast(T, kwargs['instance'])
 
         for field in instance._meta.get_fields():
