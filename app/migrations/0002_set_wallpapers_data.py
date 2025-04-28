@@ -29,7 +29,7 @@ def delete_wallpapers_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) 
     handler = DeleteAssociatedFilesOnModelDelete[WallpaperType](('image',))
     for wallpaper in Wallpaper.objects.all():
         wallpaper.delete()
-        handler(Wallpaper, instance=wallpaper)
+        handler(Wallpaper.__class__, instance=wallpaper)
 
 
 class Migration(migrations.Migration):
