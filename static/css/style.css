@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+
+    background-color: antiquewhite;
+
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.active {
+    transition: all ease-in 1s ;
+}
+
+.playfair-display {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btn {
+    --bs-btn-border-radius: 0px;
+}
+
+.footer {
+    background-color: #d0ebff;
+    padding: 20px 0;
+}
+
+.footer-logo {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.nav-link {
+    color: rgb(187, 187, 187);
+}
+
+.nav-link:hover {
+    color: rgb(187, 187, 187);
+}

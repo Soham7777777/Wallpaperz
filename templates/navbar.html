@@ -1,0 +1,32 @@
+{% url 'home' as home_path %}
+{% url 'categories' as categories_path %}
+
+
+<nav class="navbar navbar-expand-lg bg-dark py-3 px-4 text-light" style="transition: top 1s;">
+    <div class="container-fluid">
+
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img class="bi me-3" width="40" height="40" src="{{ STATIC_PREFIX }}web-app-manifest-512x512.png"
+                alt="Website Logo" class="footer-logo">
+            <span class="fs-3 text-light fw-bold">Wallpaperz</span>
+        </a>
+
+        <button class="navbar-toggler p-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="bi bi-list text-light fs-2"></i></span>
+        </button>
+
+        <div class="collapse navbar-collapse fs-5 mt-2 mt-lg-0" id="navbarSupportedContent">
+            <ul class="nav navbar-nav nav-underline ms-auto mb-2 mb-lg-0" hx-boost="true">
+                <li class="nav-item">
+                    <a id="home-url" class="nav-link {% if request.path_info == home_path %} active text-white {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+
+                <li class="nav-item ms-lg-5">
+                    <a id="categories-url" class="nav-link {% if request.path_info == categories_path %} active text-white {% endif %}" href="{% url 'categories' %}">Categories</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
