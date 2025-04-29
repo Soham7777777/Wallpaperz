@@ -26,7 +26,7 @@ urlpatterns = [
     path(
         'categories', 
         TemplateView.as_view(
-            template_name='app/categories.html'
+            template_name='app/categories/page.html'
         ), 
         name='categories'
     ),

@@ -6,29 +6,21 @@ from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 from django.conf import settings
 from django.core.files.images import ImageFile
 from pathlib import Path
-from common.models import AbstractBaseModel
 from common.image_utils import get_file_extensions_for_image_format, ImageFormat
-from common.signals import DeleteAssociatedFilesOnModelDelete
+from common.data_migration_utils import DeleteHistoricalModelData
 
 
 wallpapers_directory: Path = settings.BASE_DIR / 'images/wallpapers/'
+delete_wallpaper_data = DeleteHistoricalModelData('app', 'Wallpaper', ('image', ))
 
 
 def set_wallpapers_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
-    delete_wallpapers_data(apps, schema_editor)
+    delete_wallpaper_data(apps, schema_editor)
     Wallpaper = apps.get_model('app', 'Wallpaper')
     jpeg_extensions = get_file_extensions_for_image_format(ImageFormat.JPEG)
     for file in wallpapers_directory.glob('*'):
         if file.suffix.lower() in jpeg_extensions:
             Wallpaper.objects.create(image=ImageFile(file.open('rb')))
-
-
-def delete_wallpapers_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
-    Wallpaper = apps.get_model('app', 'Wallpaper')
-    handler = DeleteAssociatedFilesOnModelDelete[AbstractBaseModel](('image',))
-    for wallpaper in Wallpaper.objects.all():
-        wallpaper.delete()
-        handler(Wallpaper, instance=wallpaper)
 
 
 class Migration(migrations.Migration):
@@ -40,6 +32,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             set_wallpapers_data,
-            delete_wallpapers_data
+            delete_wallpaper_data
         )
     ]
