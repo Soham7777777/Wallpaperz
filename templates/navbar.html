@@ -20,11 +20,11 @@
         <div class="collapse navbar-collapse fs-5 mt-2 mt-lg-0" id="navbarSupportedContent">
             <ul class="nav navbar-nav nav-underline ms-auto mb-2 mb-lg-0" hx-boost="true">
                 <li class="nav-item">
-                    <a id="home-url" class="nav-link {% if request.path_info == home_path %} active text-white {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link {% if request.path_info == home_path %} active text-white {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
                 </li>
 
                 <li class="nav-item ms-lg-5">
-                    <a id="categories-url" class="nav-link {% if request.path_info == categories_path %} active text-white {% endif %}" href="{% url 'categories' %}">Categories</a>
+                    <a class="nav-link {% if request.path_info == categories_path %} active text-white {% endif %}" href="{% url 'categories' %}">Categories</a>
                 </li>
             </ul>
         </div>
