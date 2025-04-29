@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+{% block head %}
+{{ block.super }}
+<link href="{{ STATIC_PREFIX }}css/home.css" rel="stylesheet">
+{% endblock head %}
+
+
+{% block main %}
+{% include 'app/home/includes/hero.html' %}
+
+<div class="grid" id="wallpapers">
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
+</div>
+  
+<div id="load-more-button-container"></div>
+{% endblock main %}
+
+
+{% block scripts %}
+<script>const ajax_wallpaper_url = "{% url 'wallpapers' %}{% querystring page_number=1 %}"</script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+<script src="{{ STATIC_PREFIX }}js/home.js"></script>
+{% endblock scripts %}

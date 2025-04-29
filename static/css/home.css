@@ -1,0 +1,140 @@
+.grid {
+    margin: 50px 24px;
+}
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-item {
+    margin-bottom: 16px;
+}
+
+.grid-item:hover {
+    cursor: pointer;
+}
+
+.gutter-sizer {
+    width: 16px;
+}
+
+.grid-sizer,
+.grid-item {
+    width: calc((100% - 32px) / 3);
+}
+
+@media (max-width: 991.98px) {
+
+    .grid-sizer,
+    .grid-item {
+        width: calc((100% - 16px) / 2);
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .grid-sizer,
+    .grid-item {
+        width: 100%;
+    }
+
+    .grid-item {
+        margin-bottom: 12px;
+    }
+}
+
+.grid-item {
+    float: left;
+}
+
+.grid-item img {
+    display: block;
+    max-width: 100%;
+}
+
+
+.loading-item {
+    position: relative;
+    overflow: hidden;
+    background: #ededed;
+}
+
+/* Shimmer animation */
+.loading-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 0%, rgb(255, 255, 255) 50%, transparent 100%);
+    animation: shimmer 2s ease-out infinite;
+    z-index: 1;
+}
+
+/* Make sure the image is hidden while loading */
+.loading-item img {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* When loading-item class is removed, shimmer disappears and image fades in */
+.grid-item:not(.loading-item) img {
+    opacity: 1;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+.grid-item {
+    position: relative;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.grid-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.grid-item:hover::after {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.grid-item img {
+    position: relative;
+    z-index: 1;
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.grid-item:hover .overlay-content {
+    opacity: 1;
+}
