@@ -1,0 +1,4 @@
+# 2 tasks to complete:
+
+- why files gets save when unique constraint fails
+  - we will always run full clean before saving

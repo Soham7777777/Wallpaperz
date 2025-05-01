@@ -21,7 +21,10 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=32, unique=True, validators=[django.core.validators.MinLengthValidator(2), django.core.validators.RegexValidator('^(?!.*\\s{2,})[A-Za-z]+(?: [A-Za-z]+)*$', 'Ensure that the name contains only English letters or spaces, with no leading or trailing spaces and no consecutive spaces.')])),
+                ('name', models.CharField(max_length=32, unique=True, validators=[django.core.validators.MinLengthValidator(2), django.core.validators.RegexValidator(
+                    r'^(?!.*\s{2,})[a-z]+(?: [a-z]+)*$',
+                    'Ensure that the name contains only lowercase English letters or spaces, with no leading or trailing spaces and no consecutive spaces.'
+                )])),
                 ('thumbnail', models.ImageField(max_length=256, null=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('category-thumbnails'), 'image'), validators=[common.validators.MaxFileSizeValidator(1048576), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'], common.image_utils.ImageFormat['PNG'], common.image_utils.ImageFormat['WEBP'])), common.validators.ImageDimensionValidator(min_height=512, min_width=512)])),
             ],
             options={
@@ -36,6 +39,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='wallpaper',
             name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='wallpapers', to='app.category'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='wallpapers', to='app.category'),
         ),
     ]
