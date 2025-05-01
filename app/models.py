@@ -29,9 +29,8 @@ class Wallpaper(AbstractBaseModel):
     )
     category = models.ForeignKey(
         'Category',
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='wallpapers',
-        null=True,
     )
 
     objects: models.Manager['Wallpaper'] = models.Manager()
