@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
 
 {% block title %} Categories {% endblock title %}
 
 
 {% block main %}
-<h1>Categories</h1>
+<div class="container-fluid px-4 my-4">
+    <div class="row p-0 m-0">
+
+        {% for category in categories %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card categories-card rounded-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ category.name }}">
+                <div class="categories-card-img-container rounded-0">
+                    {% if category.thumbnail %}
+                    <img src="{{ category.thumbnail.url }}" class="card-img-top rounded-0" alt="Category Thumbnail">
+                    {% else %}
+                    <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" class="card-img-top rounded-0" alt="Category Thumbnail">
+                    {% endif %}
+                </div>
+                <div class="card-body bg-dark text-white">
+                    <h5 class="card-title categories-card-title text-truncate">{{ category.name|title }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
 {% endblock main %}
+
+
+{% block scripts %}
+<script src="{{ STATIC_PREFIX }}js/categories.js"></script>
+{% endblock scripts %}

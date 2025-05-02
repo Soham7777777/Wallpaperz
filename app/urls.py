@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView, ListView
-from app.models import Wallpaper
+from app.models import Wallpaper, Category
 
 
 urlpatterns = [
@@ -25,8 +25,10 @@ urlpatterns = [
 
     path(
         'categories', 
-        TemplateView.as_view(
-            template_name='app/categories/page.html'
+        ListView.as_view(
+            model=Category,
+            template_name='app/categories/page.html',
+            context_object_name='categories'
         ), 
         name='categories'
     ),

@@ -5,7 +5,6 @@
 <html lang="en">
 
 <head>
-    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
@@ -32,7 +31,9 @@
         integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
         crossorigin="anonymous"></script>
 
-    {% endblock head %}
+    <link href="{{ STATIC_PREFIX }}css/home.css" rel="stylesheet">
+    <link href="{{ STATIC_PREFIX }}css/categories.css" rel="stylesheet">
+    
 </head>
 
 <body class="d-flex flex-column">

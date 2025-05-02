@@ -9,12 +9,6 @@ Home
 {% endblock title %}
 
 
-{% block head %}
-{{ block.super }}
-<link href="{{ STATIC_PREFIX }}css/home.css" rel="stylesheet">
-{% endblock head %}
-
-
 {% block main %}
 {% include 'app/home/includes/hero.html' %}
 
