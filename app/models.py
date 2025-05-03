@@ -65,7 +65,6 @@ class Category(AbstractBaseModel):
         max_length=256
     )
     slug = models.SlugField(
-        null=True,
         max_length=32
     )
 
