@@ -1,5 +1,5 @@
 from django.urls import path
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from app.models import Category
 from app.views import FilteredWallpaperListView, HomePageView
 
@@ -22,7 +22,7 @@ urlpatterns = [
         'categories', 
         ListView.as_view(
             model=Category,
-            template_name='app/categories/page.html',
+            template_name='app/categories.html',
             context_object_name='categories'
         ), 
         name='categories'

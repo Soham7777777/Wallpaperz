@@ -8,6 +8,7 @@ from common.constants import MB
 from common import regexes
 from django.core import validators
 from django_stubs_ext.db.models.manager import RelatedManager
+from django.utils.text import slugify
 
 
 class Wallpaper(AbstractBaseModel):
@@ -63,7 +64,15 @@ class Category(AbstractBaseModel):
         ],
         max_length=256
     )
+    slug = models.SlugField(
+        null=True,
+        max_length=32
+    )
 
     wallpapers: RelatedManager[Wallpaper]
 
     objects: models.Manager['Category'] = models.Manager()
+
+
+    def clean(self) -> None:
+        self.slug = slugify(self.name)

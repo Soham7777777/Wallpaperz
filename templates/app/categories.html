@@ -13,12 +13,14 @@
 
         {% for category in categories %}
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card categories-card rounded-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ category.name }}">
+            <div class="card categories-card rounded-0" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                data-bs-title="{{ category.name }}">
                 <div class="categories-card-img-container rounded-0">
                     {% if category.thumbnail %}
                     <img src="{{ category.thumbnail.url }}" class="card-img-top rounded-0" alt="Category Thumbnail">
                     {% else %}
-                    <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" class="card-img-top rounded-0" alt="Category Thumbnail">
+                    <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" class="card-img-top rounded-0"
+                        alt="Category Thumbnail">
                     {% endif %}
                 </div>
                 <div class="card-body bg-dark text-white">
