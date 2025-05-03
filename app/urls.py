@@ -1,25 +1,20 @@
 from django.urls import path
-from django.views.generic import TemplateView, ListView
-from app.models import Wallpaper, Category
+from django.views.generic import ListView
+from app.models import Category
+from app.views import FilteredWallpaperListView, HomePageView
 
 
 urlpatterns = [
 
     path(
         '', 
-        TemplateView.as_view(
-            template_name='app/home/page.html'
-        ), 
+        HomePageView.as_view(), 
         name='home'
     ),
 
     path(
         'wallpapers',
-        ListView.as_view(
-            model=Wallpaper,
-            paginate_by=9, 
-            template_name='app/home/ajax/wallpapers.html'
-        ), 
+        FilteredWallpaperListView.as_view(), 
         name='wallpapers'
     ),
 

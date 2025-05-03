@@ -21,6 +21,7 @@ id="load-more-button-container"
         hx-get="{% url 'wallpapers' %}{% querystring page=page_obj.next_page_number %}"
         hx-target="#wallpapers"
         hx-swap="beforeend"
+        hx-indicator="#ajaxOverlay"
         disabled
         >Load more</button>
     {% endif %}

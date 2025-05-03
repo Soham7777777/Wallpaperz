@@ -25,13 +25,13 @@ class AppConfig(ApplicationConfig):
 
 
         post_delete.connect(
-            DeleteAssociatedFilesOnModelDelete[Category](('image', 'thumbnail')),
+            DeleteAssociatedFilesOnModelDelete[Category](('thumbnail', )),
             sender=Wallpaper,
             dispatch_uid='CATEGORY_DELETE_FILES_POST_DELETE'
         )
 
         pre_save.connect(
-            DeleteAssociatedOldFilesOnModelUpdate[Category](('image', 'thumbnail')),
+            DeleteAssociatedOldFilesOnModelUpdate[Category](('thumbnail', )),
             sender=Wallpaper,
             dispatch_uid='CATEGORY_DELETE_OLD_FILES_PRE_SAVE'
         )

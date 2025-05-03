@@ -1,7 +1,6 @@
 var grid = document.querySelector('.grid');
 var msnry;
 
-
 function masonryInit() {
     msnry = new Masonry(grid, {
         itemSelector: '.grid-item',
@@ -18,7 +17,7 @@ function masonryInit() {
     });
 
     imagesLoaded(grid).on('always', function (instance) {
-        const button = document.querySelector('#load-more-button-container > button');
+        var button = document.querySelector('#load-more-button-container > button');
         if (button !== null && button.hasAttribute('disabled')) {
             button.removeAttribute('disabled');
         }

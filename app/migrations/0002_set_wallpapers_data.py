@@ -8,6 +8,7 @@ from django.core.files.images import ImageFile
 from pathlib import Path
 from common.image_utils import get_file_extensions_for_image_format, ImageFormat
 from common.data_migration_utils import DeleteHistoricalModelData
+from operator import attrgetter
 
 
 wallpapers_directory: Path = settings.BASE_DIR / 'images/wallpapers/'
@@ -18,7 +19,7 @@ def set_wallpapers_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> 
     delete_wallpaper_data(apps, schema_editor)
     Wallpaper = apps.get_model('app', 'Wallpaper')
     jpeg_extensions = get_file_extensions_for_image_format(ImageFormat.JPEG)
-    for file in wallpapers_directory.glob('*'):
+    for file in sorted(wallpapers_directory.glob('*'), key=attrgetter('name')):
         if file.suffix.lower() in jpeg_extensions:
             Wallpaper.objects.create(image=ImageFile(file.open('rb')))
 

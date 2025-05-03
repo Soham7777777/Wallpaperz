@@ -49,3 +49,18 @@ a {
 .nav-link:hover {
     color: rgb(187, 187, 187);
 }
+
+.htmx-indicator {
+    z-index: -1;
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    z-index: 1050;
+    display: block;
+}
+
+.htmx-request.htmx-indicator {
+    z-index: 1050;
+    display: block;
+}
