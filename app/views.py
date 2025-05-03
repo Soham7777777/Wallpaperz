@@ -15,7 +15,7 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
         queryset: QuerySet[Wallpaper, Wallpaper] = super().get_queryset()
         category_name = self.request.GET.get('category')
         if category_name:
-            queryset = queryset.filter(category__name__iexact=category_name)
+            queryset = queryset.filter(category__slug__iexact=category_name)
         return queryset
 
 
@@ -26,5 +26,5 @@ class HomePageView(TemplateView):
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.values_list('name', flat=True)
+        context['categories'] = Category.objects.values_list('slug', flat=True)
         return context

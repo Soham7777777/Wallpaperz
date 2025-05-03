@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
+{% block title %}
+{{ category.name | title }}
+{% endblock title %}
+
+
+{% block main %}
+<div class="container-fluid px-4 my-4">
+    <h1 id="category-title" class="text-truncate"> {{ category.name | title }} </h1>
+    <hr style="height: 5px; background-color: red; border: none;">
+
+
+    <div class="container pt-3 pb-5">
+        <div class="category-image-wrapper">
+            {% if category.thumbnail %}
+            <img src="{{ category.thumbnail.url }}" alt="Category Thumbnail"
+                class="img-fluid category-responsive-image" />
+            {% else %}
+            <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" alt="Category Thumbnail"
+                class="img-fluid category-responsive-image" />
+            {% endif %}
+        </div>
+    </div>
+
+    {% if category.wallpapers %}
+    <h2>Wallpapers</h2>
+    <hr>
+
+</div>
+
+<div class="grid">
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
+    <div id="wallpapers"></div>
+</div>
+
+<div id="load-more-button-container"></div>
+{% endif %}
+
+{% endblock main %}
+
+
+{% block scripts %}
+<script>var ajax_wallpaper_url = "{% url 'wallpapers' %}{% querystring category=category.slug page=1 %}"</script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+<script src="{{ STATIC_PREFIX }}js/home.js"></script>
+{% endblock scripts %}

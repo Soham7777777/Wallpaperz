@@ -28,4 +28,14 @@ urlpatterns = [
         name='categories'
     ),
 
+    path(
+        '<slug:slug>',
+        DetailView.as_view(
+            model=Category,
+            template_name='app/category.html',
+            context_object_name='category',
+        ),
+        name='category'
+    ),
+
 ]
