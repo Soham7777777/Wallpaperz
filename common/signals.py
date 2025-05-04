@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, cast
+from typing import Any, cast, override
 from django.db import models
 from django.db.models.fields.files import FieldFile
 from common.models import AbstractBaseModel
@@ -20,6 +20,7 @@ class DeleteAssociatedFilesOnModelDelete[T: AbstractBaseModel](AbstractModelSign
     target_file_fields: tuple[str, ...]
 
 
+    @override
     def __call__(self, sender: type[T], **kwargs: Any) -> None:
         instance = cast(T, kwargs['instance'])
 
@@ -35,6 +36,7 @@ class DeleteAssociatedOldFilesOnModelUpdate[T: AbstractBaseModel](AbstractModelS
     target_file_fields: tuple[str, ...]
 
 
+    @override
     def __call__(self, sender: type[T], **kwargs: Any) -> None:
         instance = cast(T, kwargs['instance'])
 

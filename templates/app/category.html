@@ -12,11 +12,11 @@
 
 {% block main %}
 <div class="container-fluid px-4 my-4">
-    <h1 id="category-title" class="text-truncate"> {{ category.name | title }} </h1>
+    <h1 id="category-title"> {{ category.name | title }} </h1>
     <hr style="height: 5px; background-color: red; border: none;">
 
 
-    <div class="container pt-3 pb-5">
+    <div class="container pt-3">
         <div class="category-image-wrapper">
             {% if category.thumbnail %}
             <img src="{{ category.thumbnail.url }}" alt="Category Thumbnail"
@@ -28,19 +28,22 @@
         </div>
     </div>
 
+    <div class="container-fluid px-0 my-5 text-center text-lg-start">
+        <a href="{% url 'delete_category' category.slug %}" class="text-danger" style="text-decoration: underline;"
+            hx-get="{% url 'delete_category' category.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+            data-bs-target="#MainModal">
+            <i class="bi bi-trash me-2"></i>Delete this category
+        </a>
+    </div>
+
     {% if category.wallpapers %}
     <h2>Wallpapers</h2>
     <hr>
 
 </div>
 
-<div class="grid">
-    <div class="grid-sizer"></div>
-    <div class="gutter-sizer"></div>
-    <div id="wallpapers"></div>
-</div>
+{% include 'includes/wallpaper_grid.html' %}
 
-<div id="load-more-button-container"></div>
 {% endif %}
 
 {% endblock main %}
@@ -52,3 +55,8 @@
 <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <script src="{{ STATIC_PREFIX }}js/home.js"></script>
 {% endblock scripts %}
+
+
+{% block extrabody %}
+{% include 'includes/modal.html' %}
+{% endblock extrabody %}

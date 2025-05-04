@@ -1,3 +1,4 @@
+from typing import override
 from django.apps import AppConfig as ApplicationConfig
 from django.db.models.signals import post_delete, pre_save
 
@@ -7,6 +8,7 @@ class AppConfig(ApplicationConfig):
     name = 'app'
 
 
+    @override
     def ready(self) -> None:
         from common.signals import DeleteAssociatedFilesOnModelDelete, DeleteAssociatedOldFilesOnModelUpdate
         from app.models import Wallpaper, Category

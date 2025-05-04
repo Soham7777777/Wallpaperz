@@ -64,3 +64,21 @@ a {
     z-index: 1050;
     display: block;
 }
+
+#MainModalContent {
+    width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+#toastContainer {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast, .toast > div{
+    border-radius: 0;
+}

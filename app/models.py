@@ -1,3 +1,4 @@
+from typing import override
 from django.db import models
 from pathlib import PurePath
 from common.models import AbstractBaseModel
@@ -73,5 +74,6 @@ class Category(AbstractBaseModel):
     objects: models.Manager['Category'] = models.Manager()
 
 
+    @override
     def clean(self) -> None:
         self.slug = slugify(self.name)

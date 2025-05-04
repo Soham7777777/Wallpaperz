@@ -13,18 +13,18 @@ Home
 {% include 'app/home/includes/hero.html' %}
 
 
+{% if has_wallpaper_data %}
 <div class="container-fluid px-4 my-4">
     {% include 'app/home/includes/category_select_form.html' %}
 </div>
 
+{% include 'includes/wallpaper_grid.html' %}
 
-<div class="grid">
-    <div class="grid-sizer"></div>
-    <div class="gutter-sizer"></div>
-    <div id="wallpapers"></div>
-</div>
+{% else %}
+{% include 'includes/empty_data.html' %}
+{% endif %}
 
-<div id="load-more-button-container"></div>
+
 {% endblock main %}
 
 
