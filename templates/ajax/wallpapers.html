@@ -1,12 +1,14 @@
 {% load static %}
 
 {% for wallpaper in page_obj.object_list %}
-<div class="grid-item loading-item">
-    <img class="img-fluid" src="{{ wallpaper.image.url }}" alt="wallpaper">
-    <div class="overlay-content">
+<a href="{% url 'wallpaper' wallpaper.slug %}">
+    <div class="grid-item loading-item">
+        <img class="img-fluid" src="{{ wallpaper.image.url }}" alt="wallpaper">
+        <div class="overlay-content">
 
+        </div>
     </div>
-</div>
+</a>
 {% endfor %}
 
 

@@ -39,6 +39,16 @@ urlpatterns = [
     ),
 
     path(
+        'wallpaper/<slug:slug>',
+        DetailView.as_view(
+            model=Wallpaper,
+            template_name='pages/wallpaper/page.html',
+            context_object_name='wallpaper',
+        ),
+        name='wallpaper'
+    ),
+
+    path(
         'delete-category/<slug:slug>',
         CustomHTMXDeleteView.as_view(
             model=Category,

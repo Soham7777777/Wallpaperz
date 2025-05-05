@@ -1,0 +1,52 @@
+/* .wallpaper-image-wrapper {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.wallpaper-responsive-image {
+    height: 100%;
+    object-fit: contain;
+} */
+
+.wallpaper-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vmin;
+    /* sensible default */
+}
+
+.wallpaper-responsive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Boost size for smaller screens */
+@media (max-width: 576px) {
+    .wallpaper-image-wrapper {
+        max-width: auto;
+    }
+}
+
+/* Medium devices */
+@media (min-width: 577px) and (max-width: 768px) {
+    .wallpaper-image-wrapper {
+        max-width: auto;
+    }
+}
+
+/* Large and up */
+@media (min-width: 769px) {
+    .wallpaper-image-wrapper {
+        max-width: auto;
+    }
+}
