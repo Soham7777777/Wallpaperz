@@ -10,6 +10,7 @@ from common import regexes
 from django.core import validators
 from django_stubs_ext.db.models.manager import RelatedManager
 from django.utils.text import slugify
+from django.core import validators
 
 
 class Wallpaper(AbstractBaseModel):
@@ -34,8 +35,21 @@ class Wallpaper(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name='wallpapers',
     )
+    slug = models.SlugField(
+        null=True,
+        max_length=32,
+        validators=[
+            validators.MinLengthValidator(32),
+            regexes.uuid_regex_validator,
+        ]
+    )
 
     objects: models.Manager['Wallpaper'] = models.Manager()
+
+
+    @override
+    def clean(self) -> None:
+        self.slug = self.uuid.hex
 
 
 class Category(AbstractBaseModel):

@@ -1,6 +1,6 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
-from app.models import Category
+from app.models import Category, Wallpaper
 from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView
 
 

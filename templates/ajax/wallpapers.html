@@ -1,28 +1,20 @@
 {% load static %}
 
 {% for wallpaper in page_obj.object_list %}
-    <div class="grid-item loading-item">
-        <img class="img-fluid" src="{{ wallpaper.image.url }}" alt="wallpaper">
-        <div class="overlay-content">
-            
-        </div>
+<div class="grid-item loading-item">
+    <img class="img-fluid" src="{{ wallpaper.image.url }}" alt="wallpaper">
+    <div class="overlay-content">
+
     </div>
+</div>
 {% endfor %}
 
 
-<div 
-class="container container-load-more d-flex justify-content-center align-items-center mt-5" style="margin-bottom: 100px;"
-hx-swap-oob="true"
-id="load-more-button-container"
->
+<div class="container container-load-more d-flex justify-content-center align-items-center mt-5"
+    style="margin-bottom: 100px;" hx-swap-oob="true" id="load-more-button-container">
     {% if page_obj.has_next %}
-        <button
-        class="btn btn-secondary fw-bold"
-        hx-get="{% url 'wallpapers' %}{% querystring page=page_obj.next_page_number %}"
-        hx-target="#wallpapers"
-        hx-swap="beforeend"
-        hx-indicator="#ajaxOverlay"
-        disabled
-        >Load more</button>
+    <button class="btn btn-secondary fw-bold"
+        hx-get="{% url 'wallpapers' %}{% querystring page=page_obj.next_page_number %}" hx-target="#wallpapers"
+        hx-swap="beforeend" hx-indicator="#ajaxOverlay" disabled>Load more</button>
     {% endif %}
 </div>

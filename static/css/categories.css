@@ -11,6 +11,9 @@
 
 .categories-card:hover {
     transform: scale(1.03);
+    .card-title{
+        color: lightgray;
+    }
 }
 
 .categories-card-img-container {
