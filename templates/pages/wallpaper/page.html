@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 
 
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
 {% block title %}
 Wallpaper
 {% endblock title %}
 
 
 {% block main %}
-<div class="container-fluid bg-secondary-subtle">
-    <div class="wallpaper-image-wrapper mx-auto mt-4">
-        <img src="{{ wallpaper.image.url }}" alt="Wallpaper" class="wallpaper-responsive-image">
+<div class="container-fluid px-4 my-4">
+
+    <div class="wallpaper-image-wrapper">
+        <img src="{{ wallpaper.image.url }}" alt="Wallpaper" class="img-fluid wallpaper-image">
     </div>
+
 </div>
 {% endblock main %}
