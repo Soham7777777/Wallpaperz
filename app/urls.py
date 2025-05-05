@@ -22,7 +22,7 @@ urlpatterns = [
         'categories', 
         ListView.as_view(
             model=Category,
-            template_name='app/categories.html',
+            template_name='pages/categories/page.html',
             context_object_name='categories'
         ), 
         name='categories'
@@ -32,7 +32,7 @@ urlpatterns = [
         '<slug:slug>',
         DetailView.as_view(
             model=Category,
-            template_name='app/category.html',
+            template_name='pages/category/page.html',
             context_object_name='category',
         ),
         name='category'
@@ -43,7 +43,7 @@ urlpatterns = [
         CustomHTMXDeleteView.as_view(
             model=Category,
             success_url=reverse_lazy('categories'),
-            template_name='app/category_confirm_delete.html',
+            template_name='pages/category/ajax/category_confirm_delete.html',
             context_object_name='category',
         ),
         name='delete_category'

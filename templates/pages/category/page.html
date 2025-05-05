@@ -17,35 +17,26 @@
 
 
     <div class="container pt-3">
-        <div class="category-image-wrapper">
-            {% if category.thumbnail %}
-            <img src="{{ category.thumbnail.url }}" alt="Category Thumbnail"
-                class="img-fluid category-responsive-image" />
-            {% else %}
-            <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" alt="Category Thumbnail"
-                class="img-fluid category-responsive-image" />
-            {% endif %}
-        </div>
+        {% include 'pages/category/includes/thumbnail.html' %}
     </div>
 
     <div class="container-fluid px-0 my-5 text-center text-lg-start">
-        <a href="{% url 'delete_category' category.slug %}" class="text-danger" style="text-decoration: underline;"
-            hx-get="{% url 'delete_category' category.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
-            data-bs-target="#MainModal">
-            <i class="bi bi-trash me-2"></i>Delete this category
-        </a>
+        {% include 'pages/category/includes/actions.html' %}
     </div>
 
-    {% if category.wallpapers %}
     <h2>Wallpapers</h2>
     <hr>
 
+    {% if category.wallpapers.exists %}
+
+    {% include 'includes/wallpaper_grid.html' %}
+
+    {% else %}
+
+    {% include 'includes/empty_data.html' %}
+
+    {% endif %}
 </div>
-
-{% include 'includes/wallpaper_grid.html' %}
-
-{% endif %}
-
 {% endblock main %}
 
 

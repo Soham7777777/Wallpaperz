@@ -10,12 +10,12 @@ Home
 
 
 {% block main %}
-{% include 'app/home/includes/hero.html' %}
+{% include 'pages/home/includes/hero.html' %}
 
 
 {% if has_wallpaper_data %}
 <div class="container-fluid px-4 my-4">
-    {% include 'app/home/includes/category_select_form.html' %}
+    {% include 'pages/home/includes/category_select_form.html' %}
 </div>
 
 {% include 'includes/wallpaper_grid.html' %}

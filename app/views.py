@@ -13,7 +13,7 @@ from django.contrib import messages
 class FilteredWallpaperListView(ListView[Wallpaper]):
 
     model = Wallpaper
-    template_name = 'app/home/ajax/wallpapers.html'
+    template_name = 'ajax/wallpapers.html'
     paginate_by = 9
 
 
@@ -28,7 +28,7 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
 
 class HomePageView(TemplateView):
 
-    template_name='app/home/page.html'
+    template_name='pages/home/page.html'
 
     
     @override
