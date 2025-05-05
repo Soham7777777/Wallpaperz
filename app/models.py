@@ -36,7 +36,6 @@ class Wallpaper(AbstractBaseModel):
         related_name='wallpapers',
     )
     slug = models.SlugField(
-        null=True,
         max_length=32,
         validators=[
             validators.MinLengthValidator(32),
