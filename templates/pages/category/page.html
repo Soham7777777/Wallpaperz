@@ -29,7 +29,11 @@
 
     {% if category.wallpapers.exists %}
 
-    {% include 'includes/wallpaper_grid.html' %}
+    {% url 'wallpapers' as base_url %}
+    {% querystring category=category.slug page=1 as query_str %}
+    {% with wallpapers_url=base_url|add:query_str %}
+    {% include 'includes/grid.html' %}
+    {% endwith %}
 
     {% else %}
 
@@ -41,10 +45,9 @@
 
 
 {% block scripts %}
-<script>var ajax_wallpaper_url = "{% url 'wallpapers' %}{% querystring category=category.slug page=1 %}"</script>
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-<script src="{{ STATIC_PREFIX }}js/home.js"></script>
+<script src="{{ STATIC_PREFIX }}js/vendor/imagesLoaded.js" defer></script>
+<script src="{{ STATIC_PREFIX }}js/vendor/masonry.js" defer></script>
+<script src="{{ STATIC_PREFIX }}js/scripts/grid.js" defer></script>
 {% endblock scripts %}
 
 

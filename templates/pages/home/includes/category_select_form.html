@@ -8,7 +8,7 @@
         >
             <option selected value="">All Categories</option>
             {% for category in categories %}
-            <option value="{{ category }}">{{ category | title }}</option>
+            <option value="{{ category.slug }}">{{ category.name | title }}</option>
             {% endfor %}
         </select>
     </div>

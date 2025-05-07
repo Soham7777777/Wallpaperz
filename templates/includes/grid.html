@@ -1,0 +1,18 @@
+<div class="grid" hx-boost="true" hx-on::load="loadGrid();">
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
+    <div id="wallpapers">
+        <div 
+        {% if wallpapers_url %}
+        hx-get="{{ wallpapers_url }}" 
+        {% else %}
+        hx-get="{% url 'wallpapers' %}{% querystring page=1 %}" 
+        {% endif %}
+        hx-trigger="revealed"
+        hx-swap="outerHTML"
+        hx-target="this"
+        ></div>
+    </div>
+</div>
+
+<div id="load-more-button-container"></div>

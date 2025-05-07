@@ -34,7 +34,7 @@ class HomePageView(TemplateView):
     @override
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.values_list('slug', flat=True)
+        context['categories'] = Category.objects.values('name', 'slug')
         context['has_wallpaper_data'] = Wallpaper.objects.exists()
         return context
 

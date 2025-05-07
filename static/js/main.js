@@ -1,36 +1,13 @@
-var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+"use strict";
 
-var collapseElementList = document.querySelectorAll('.collapse')
-var collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl))
+import { Tooltip, Collapse } from "./vendor/bootstrap.mjs";
+import { showToast, loadMessages } from "./modules/common.mjs";
 
+var tooltipTriggerList;
+var tooltipList;
 
-function showToast(message) {
-    const container = document.getElementById('toastContainer');
-
-    const toastEl = document.createElement('div');
-    toastEl.className = 'toast align-items-center text-white bg-success border-0 mb-2';
-    toastEl.setAttribute('role', 'alert');
-    toastEl.setAttribute('aria-live', 'assertive');
-    toastEl.setAttribute('aria-atomic', 'true');
-
-    toastEl.innerHTML = `
-<div class="d-flex">
-<div class="toast-body fw-bold">${message}</div>
-<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-</div>
-`;
-
-    container.appendChild(toastEl);
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-    toast.show();
-
-    // Remove from DOM after hidden
-    toastEl.addEventListener('hidden.bs.toast', () => {
-        toastEl.remove();
-    });
-}
-
+var collapseElementList;
+var collapseList;
 
 document.body.addEventListener('htmx:configRequest', (event) => {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -39,9 +16,20 @@ document.body.addEventListener('htmx:configRequest', (event) => {
     }
 });
 
+function baseScript() {
+    loadMessages().forEach(message => {
+        showToast(message);
+    });
 
+    tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipList = [...tooltipTriggerList].map(el => new Tooltip(el));
 
-document.querySelectorAll('#messages > p').forEach(element => {
-    console.log('toast fired');
-    showToast(element.innerHTML);
+    collapseElementList = document.querySelectorAll('.collapse');
+    collapseList = [...collapseElementList].map(el => new Collapse(el));
+}
+
+baseScript();
+
+document.body.addEventListener('htmx:afterSettle', function (event) {
+    baseScript();
 });
