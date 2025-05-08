@@ -26,7 +26,7 @@
     <link href="{{ STATIC_PREFIX }}css/categories.css" rel="stylesheet">
     <link href="{{ STATIC_PREFIX }}css/category.css" rel="stylesheet">
     <link href="{{ STATIC_PREFIX }}css/wallpaper.css" rel="stylesheet">
-    
+
     <script type="module" src="{{ STATIC_PREFIX }}js/vendor/bootstrap.mjs"></script>
     <script type="module" src="{{ STATIC_PREFIX }}js/vendor/htmx.mjs"></script>
     <script type="module" src="{{ STATIC_PREFIX }}js/main.js"></script>
@@ -40,7 +40,14 @@
 
 
     <main class="flex-grow-1">
-        {% block main %}{% endblock main %}
+        <div aria-live="polite" aria-atomic="true" class="position-relative">
+
+            {% block main %}{% endblock main %}
+
+            <div class="toast-container bottom-0 p-3 position-sticky">
+
+            </div>
+        </div>
     </main>
 
 
@@ -51,9 +58,6 @@
 
 
     {% block scripts %}{% endblock scripts %}
-
-
-    <div id="toastContainer" class="toast-container toast-container-bottom-center"></div>
 
 
     {% block extrabody %}{% endblock extrabody %}

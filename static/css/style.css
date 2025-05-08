@@ -72,13 +72,14 @@ a {
     word-break: break-word;
 }
 
-#toastContainer {
-    position: absolute;
+/* #toastContainer {
+    position: sticky;
     bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
-}
+} */
 
-.toast, .toast > div{
+/* .toast,
+.toast>div {
     border-radius: 0;
-}
+} */

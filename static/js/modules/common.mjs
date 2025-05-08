@@ -19,37 +19,39 @@ export function loadConstant(name) {
  * @returns {Array<string>} - The array of messages
  */
 export function loadMessages() {
-    return Array.from(document.querySelectorAll('#messages > p'))
+    let array_to_return = Array.from(document.querySelectorAll('#messages > p'))
                 .map(el => el.textContent ?? '');
+    document.querySelectorAll('#messages > p').forEach(p => p.remove());
+    return array_to_return;
 }
 
 
 /**
- * Invokes the bootstrap toast with the given message
+ * Invokes the Bootstrap toast with the given message
  * @param {string} message - The message to toast
  * @returns {void}
  */
 export function showToast(message) {
-    const container = document.getElementById('toastContainer');
+    const container = document.querySelector('.toast-container');
 
-    const toastEl = document.createElement('div');
-    toastEl.className = 'toast align-items-center text-white bg-success border-0 mb-2';
-    toastEl.setAttribute('role', 'alert');
-    toastEl.setAttribute('aria-live', 'assertive');
-    toastEl.setAttribute('aria-atomic', 'true');
+    // Create a div and set innerHTML to generate the toast structure
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+        <div class="toast rounded-0 bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body d-flex flex-row justify-content-between">
+                <div class="text-white fw-bold">${message}</div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close">
+                </button>
+            </div>
+        </div>
+    `;
 
-    toastEl.innerHTML = `
-<div class="d-flex">
-<div class="toast-body fw-bold">${message}</div>
-<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-</div>
-`;
-
+    const toastEl = wrapper.firstElementChild;
     container.appendChild(toastEl);
+
     const toast = new Toast(toastEl, { delay: 3000 });
     toast.show();
 
-    // Remove from DOM after hidden
     toastEl.addEventListener('hidden.bs.toast', () => {
         toastEl.remove();
     });

@@ -52,7 +52,7 @@ urlpatterns = [
         'delete-category/<slug:slug>',
         CustomHTMXDeleteView.as_view(
             model=Category,
-            success_url=reverse_lazy('categories'),
+            success_url=reverse_lazy('home'),
             template_name='pages/category/ajax/category_confirm_delete.html',
             context_object_name='category',
         ),

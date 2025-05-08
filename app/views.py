@@ -1,3 +1,4 @@
+import json
 from typing import Any, override
 from django.http import HttpRequest, HttpResponse
 from app.models import Wallpaper, Category
@@ -62,7 +63,7 @@ class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, BaseModelForm[AbstractB
         messages.success(request, self.get_success_message())
 
         response = HttpResponse()
-        response['HX-Location'] = self.get_success_url()
+        response['HX-Redirect'] = self.get_success_url()
         response.status_code = 204
 
         return response
