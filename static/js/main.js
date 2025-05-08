@@ -23,9 +23,6 @@ function baseScript() {
 
     tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipList = [...tooltipTriggerList].map(el => new Tooltip(el));
-
-    collapseElementList = document.querySelectorAll('.collapse');
-    collapseList = [...collapseElementList].map(el => new Collapse(el));
 }
 
 baseScript();
