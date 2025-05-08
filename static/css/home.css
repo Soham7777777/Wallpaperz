@@ -113,30 +113,9 @@
     z-index: 2;
 }
 
-.grid-item:hover::after {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 .grid-item img {
     position: relative;
     z-index: 1;
-}
-
-.overlay-content {
-    position: absolute;
-    top: 30px;
-    left: 50px;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    color: white;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.grid-item:hover .overlay-content {
-    opacity: 1;
 }
 
 .navbar-toggler-icon {
