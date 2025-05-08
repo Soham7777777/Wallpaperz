@@ -2,6 +2,12 @@
     margin: 50px 24px;
 }
 
+@media (max-width: 768px) {
+    .grid {
+        margin: 50px 8px;
+    }
+}
+
 .grid:after {
     content: '';
     display: block;

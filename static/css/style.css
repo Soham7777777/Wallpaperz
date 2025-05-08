@@ -71,15 +71,3 @@ a {
     overflow-wrap: break-word;
     word-break: break-word;
 }
-
-/* #toastContainer {
-    position: sticky;
-    bottom: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-} */
-
-/* .toast,
-.toast>div {
-    border-radius: 0;
-} */

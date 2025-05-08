@@ -11,11 +11,10 @@ Wallpaper
 
 
 {% block main %}
-<div class="container-fluid px-4 my-4">
-
-    <div class="wallpaper-image-wrapper">
-        <img src="{{ wallpaper.image.url }}" alt="Wallpaper" class="img-fluid wallpaper-image">
+<div class="container-fluid px-md-4 px-2 my-4">
+    <div class="container-fluid d-flex m-0 p-0 justify-content-center align-items-start">
+        <img src="{{ wallpaper.image.url }}" alt="Wallpaper" class="wallpaper-img img-fluid mx-auto">
     </div>
-
+    <hr>
 </div>
 {% endblock main %}

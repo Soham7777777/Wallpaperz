@@ -11,7 +11,7 @@
 
 
 {% block main %}
-<div class="container-fluid px-4 my-4">
+<div class="container-fluid px-2 px-md-4 my-4">
     <h1 id="category-title"> {{ category.name | title }} </h1>
     <hr style="height: 5px; background-color: red; border: none;">
 
@@ -26,6 +26,7 @@
 
     <h2>Wallpapers</h2>
     <hr>
+</div>
 
     {% if category.wallpapers.exists %}
 
@@ -40,7 +41,6 @@
     {% include 'includes/empty_data.html' %}
 
     {% endif %}
-</div>
 {% endblock main %}
 
 
