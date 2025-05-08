@@ -37,7 +37,7 @@ export function showToast(message) {
     // Create a div and set innerHTML to generate the toast structure
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
-        <div class="toast rounded-0 bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast rounded-0 bg-success mb-2" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-body d-flex flex-row justify-content-between">
                 <div class="text-white fw-bold">${message}</div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close">

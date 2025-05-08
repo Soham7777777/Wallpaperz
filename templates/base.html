@@ -40,14 +40,13 @@
 
 
     <main class="flex-grow-1">
-        <div aria-live="polite" aria-atomic="true" class="position-relative">
 
-            {% block main %}{% endblock main %}
 
-            <div class="toast-container bottom-0 p-3 position-sticky">
+        {% block main %}{% endblock main %}
 
-            </div>
-        </div>
+
+
+
     </main>
 
 
@@ -59,6 +58,10 @@
 
     {% block scripts %}{% endblock scripts %}
 
+    <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 start-50 translate-middle-x" style="z-index: 10000;">
+        <div class="toast-container position-sticky">
+        </div>
+    </div>
 
     {% block extrabody %}{% endblock extrabody %}
 
