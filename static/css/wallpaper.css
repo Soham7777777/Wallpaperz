@@ -5,6 +5,6 @@
     display: block;
 }
 
-img:hover {
+#wallpaper-image-view:hover {
     cursor: zoom-in;
 }

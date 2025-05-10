@@ -12,9 +12,31 @@ Wallpaper
 
 {% block main %}
 <div class="container-fluid px-md-4 px-2 my-4">
-    <div class="container-fluid d-flex m-0 p-0 justify-content-center align-items-start">
-        <img src="{{ wallpaper.image.url }}" alt="Wallpaper" class="wallpaper-img img-fluid mx-auto">
-    </div>
+    
+    {% include 'pages/wallpaper/includes/wallpaper.html' %}
+    
     <hr>
+
+    <div class="row justify-content-center">
+        <div class="col-auto m-0 px-3">
+            
+            {% include 'pages/wallpaper/includes/data.html' %}
+
+            <div class="d-flex flex-column flex-md-row mb-3 mb-md-2 justify-content-center mt-4">
+                {% include 'pages/wallpaper/includes/actions.html' %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
+
+
+{% block scripts %}
+<script src="{{ STATIC_PREFIX }}js/vendor/viewer.js"></script>
+<script src="{{ STATIC_PREFIX }}js/scripts/wallpaper_viewer.js"></script>
+{% endblock scripts %}
+
+
+{% block extrabody %}
+{% include 'includes/modal.html' %}
+{% endblock extrabody %}

@@ -59,4 +59,15 @@ urlpatterns = [
         name='delete_category'
     ),
 
+    path(
+        'delete-wallpaper/<slug:slug>',
+        CustomHTMXDeleteView.as_view(
+            model=Wallpaper,
+            success_url=reverse_lazy('home'),
+            template_name='pages/wallpaper/ajax/wallpaper_confirm_delete.html',
+            context_object_name='wallpaper',
+        ),
+        name='delete_wallpaper'
+    ),
+
 ]

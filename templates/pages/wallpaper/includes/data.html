@@ -1,0 +1,19 @@
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+    <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">UUID:</div>
+    <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.uuid }}</div>
+</div>
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+    <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Dimension:</div>
+    <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.image.width }} x {{ wallpaper.image.height }}
+    </div>
+</div>
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+    <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Size:</div>
+    <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.image.size|filesizeformat }}</div>
+</div>
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+    <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Category:</div>
+    <div class="ms-md-2 text-start flex-grow-1"><a style="text-decoration: underline; color: blue;"
+            href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
+    </div>
+</div>
