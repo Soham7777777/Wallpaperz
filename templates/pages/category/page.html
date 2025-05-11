@@ -12,7 +12,7 @@
 
 {% block main %}
 <div class="container-fluid px-2 px-md-4 my-4">
-    <h1 id="category-title"> {{ category.name | title }} </h1>
+    <h1 class="break-word" id="category-title"> {{ category.name | title }} </h1>
     <hr style="height: 5px; background-color: red; border: none;">
 
 
@@ -20,7 +20,7 @@
         {% include 'pages/category/includes/thumbnail.html' %}
     </div>
 
-    <div class="container-fluid px-0 my-5 text-center text-lg-start">
+    <div class="container-fluid px-0 my-5 text-center">
         {% include 'pages/category/includes/actions.html' %}
     </div>
 

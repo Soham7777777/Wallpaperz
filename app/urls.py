@@ -29,7 +29,7 @@ urlpatterns = [
     ),
 
     path(
-        '<slug:slug>',
+        'categories/<slug:slug>',
         DetailView.as_view(
             model=Category,
             template_name='pages/category/page.html',
@@ -39,7 +39,7 @@ urlpatterns = [
     ),
 
     path(
-        'wallpaper/<slug:slug>',
+        'wallpapers/<slug:slug>',
         DetailView.as_view(
             model=Wallpaper,
             template_name='pages/wallpaper/page.html',
@@ -49,7 +49,7 @@ urlpatterns = [
     ),
 
     path(
-        'delete-category/<slug:slug>',
+        'categories/<slug:slug>/delete',
         CustomHTMXDeleteView.as_view(
             model=Category,
             success_url=reverse_lazy('home'),
@@ -60,7 +60,7 @@ urlpatterns = [
     ),
 
     path(
-        'delete-wallpaper/<slug:slug>',
+        'wallpapers/<slug:slug>/delete',
         CustomHTMXDeleteView.as_view(
             model=Wallpaper,
             success_url=reverse_lazy('home'),

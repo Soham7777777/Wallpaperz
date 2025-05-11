@@ -1,0 +1,3 @@
+- 4 col wallpaper grid for xxl size
+- ship filters with grid
+- orientatin filter

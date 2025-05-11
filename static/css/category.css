@@ -1,8 +1,5 @@
 #category-title {
     width: 50%;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
 }
 
 @media (max-width: 575.98px) {

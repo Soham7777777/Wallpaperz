@@ -14,13 +14,13 @@ class AppConfig(ApplicationConfig):
         from app.models import Wallpaper, Category
 
         post_delete.connect(
-            DeleteAssociatedFilesOnModelDelete[Wallpaper](('image',)),
+            DeleteAssociatedFilesOnModelDelete[Wallpaper](('image', )),
             sender=Wallpaper,
             dispatch_uid='WALLPAPER_DELETE_FILES_POST_DELETE'
         )
 
         pre_save.connect(
-            DeleteAssociatedOldFilesOnModelUpdate[Wallpaper](('image',)),
+            DeleteAssociatedOldFilesOnModelUpdate[Wallpaper](('image', )),
             sender=Wallpaper,
             dispatch_uid='WALLPAPER_DELETE_OLD_FILES_PRE_SAVE'
         )
@@ -28,12 +28,12 @@ class AppConfig(ApplicationConfig):
 
         post_delete.connect(
             DeleteAssociatedFilesOnModelDelete[Category](('thumbnail', )),
-            sender=Wallpaper,
+            sender=Category,
             dispatch_uid='CATEGORY_DELETE_FILES_POST_DELETE'
         )
 
         pre_save.connect(
             DeleteAssociatedOldFilesOnModelUpdate[Category](('thumbnail', )),
-            sender=Wallpaper,
+            sender=Category,
             dispatch_uid='CATEGORY_DELETE_OLD_FILES_PRE_SAVE'
         )

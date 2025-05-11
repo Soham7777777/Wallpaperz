@@ -1,4 +1,3 @@
-import json
 from typing import Any, override
 from django.http import HttpRequest, HttpResponse
 from app.models import Wallpaper, Category
@@ -21,9 +20,16 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
     @override
     def get_queryset(self) -> QuerySet[Wallpaper, Wallpaper]:
         queryset: QuerySet[Wallpaper, Wallpaper] = super().get_queryset()
+
         category_name = self.request.GET.get('category')
         if category_name:
             queryset = queryset.filter(category__slug__iexact=category_name)
+
+        # orientation = self.request.GET.get('orientation')
+        # if orientation:
+        #     match orientation:
+        #         case ""
+
         return queryset
 
 

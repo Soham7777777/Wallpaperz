@@ -56,17 +56,20 @@ a {
 }
 
 .htmx-request .htmx-indicator {
-    z-index: 1050;
+    z-index: 2000;
     display: block;
 }
 
 .htmx-request.htmx-indicator {
-    z-index: 1050;
+    z-index: 2000;
     display: block;
 }
 
 #MainModalContent {
     width: 100%;
+}
+
+.break-word {
     white-space: normal;
     overflow-wrap: break-word;
     word-break: break-word;
