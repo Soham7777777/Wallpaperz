@@ -60,47 +60,6 @@
     max-width: 100%;
 }
 
-
-.loading-item {
-    position: relative;
-    overflow: hidden;
-    background: #ededed;
-}
-
-/* Shimmer animation */
-.loading-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent 0%, rgb(255, 255, 255) 50%, transparent 100%);
-    animation: shimmer 2s ease-out infinite;
-    z-index: 1;
-}
-
-/* Make sure the image is hidden while loading */
-.loading-item img {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* When loading-item class is removed, shimmer disappears and image fades in */
-.grid-item:not(.loading-item) img {
-    opacity: 1;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -150%;
-    }
-
-    100% {
-        left: 150%;
-    }
-}
-
 .grid-item {
     position: relative;
     transition: transform 0.3s ease;
@@ -124,6 +83,7 @@
     z-index: 1;
 }
 
-.navbar-toggler-icon {
-    background-image: none;
+/* When loading-item class is removed, shimmer disappears and image fades in */
+.grid-item:not(.loading-item) img {
+    opacity: 1;
 }

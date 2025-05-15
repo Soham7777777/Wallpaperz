@@ -17,11 +17,11 @@
 
 
     <div class="container pt-3">
-        {% include 'pages/category/includes/thumbnail.html' %}
+        {% include 'pages/category/components/thumbnail.html' %}
     </div>
 
     <div class="container-fluid px-0 my-5 text-center">
-        {% include 'pages/category/includes/actions.html' %}
+        {% include 'pages/category/components/actions.html' %}
     </div>
 
     <h2>Wallpapers</h2>
@@ -33,24 +33,12 @@
     {% url 'wallpapers' as base_url %}
     {% querystring category=category.slug page=1 as query_str %}
     {% with wallpapers_url=base_url|add:query_str %}
-    {% include 'includes/grid.html' %}
+    {% include 'components/grid.html' %}
     {% endwith %}
 
     {% else %}
 
-    {% include 'includes/empty_data.html' %}
+    {% include 'components/empty_data.html' %}
 
     {% endif %}
 {% endblock main %}
-
-
-{% block scripts %}
-<script src="{{ STATIC_PREFIX }}js/vendor/imagesLoaded.js" defer></script>
-<script src="{{ STATIC_PREFIX }}js/vendor/masonry.js" defer></script>
-<script src="{{ STATIC_PREFIX }}js/scripts/grid.js" defer></script>
-{% endblock scripts %}
-
-
-{% block extrabody %}
-{% include 'includes/modal.html' %}
-{% endblock extrabody %}

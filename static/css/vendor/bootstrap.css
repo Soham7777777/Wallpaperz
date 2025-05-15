@@ -12041,3 +12041,65 @@ textarea.form-control-lg {
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
+
+
+
+
+
+/*******************************************
+******************************************** 
+Custom Bootstrap CSS ***********************
+******************************************** 
+*******************************************/
+
+:root {
+  --bs-border-radius: 0 !important;
+  --bs-border-radius-sm: 0 !important;
+  --bs-border-radius-lg: 0 !important;
+  --bs-border-radius-xl: 0 !important;
+  --bs-border-radius-xxl: 0 !important;
+  --bs-border-radius-pill: 0 !important;
+
+  --bs-btn-border-radius: 0 !important;
+  --bs-btn-border-radius-sm: 0 !important;
+  --bs-btn-border-radius-lg: 0 !important;
+
+  --bs-card-border-radius: 0 !important;
+  --bs-alert-border-radius: 0 !important;
+  --bs-badge-border-radius: 0 !important;
+
+  --bs-modal-content-border-radius: 0 !important;
+
+  --bs-dropdown-border-radius: 0 !important;
+  --bs-dropdown-menu-border-radius: 0 !important;
+
+  --bs-toast-border-radius: 0 !important;
+
+  --bs-tooltip-border-radius: 0 !important;
+  --bs-popover-border-radius: 0 !important;
+
+  --bs-progress-border-radius: 0 !important;
+
+  --bs-pagination-border-radius: 0 !important;
+
+  --bs-input-border-radius: 0 !important;
+  --bs-input-border-radius-sm: 0 !important;
+  --bs-input-border-radius-lg: 0 !important;
+}
+
+.btn,
+.card,
+.alert,
+.badge,
+.modal-content,
+.dropdown-menu,
+.toast,
+.tooltip,
+.popover,
+.progress,
+.pagination,
+.form-control,
+.form-select,
+.input-group-text {
+  border-radius: 0 !important;
+}

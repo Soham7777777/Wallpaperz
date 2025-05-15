@@ -11,34 +11,38 @@
 
     <title>{% block title %}{% endblock title %}</title>
 
-    <link rel="icon" type="image/png" href="{{ STATIC_PREFIX }}favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{{ STATIC_PREFIX }}favicon.svg" />
-    <link rel="shortcut icon" href="{{ STATIC_PREFIX }}favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_PREFIX }}apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Wallpaperz" />
-    <link rel="manifest" href="{{ STATIC_PREFIX }}site.webmanifest" />
+    <link rel="manifest" href="/static/site.webmanifest" />
 
     <link rel="stylesheet" href="{{ STATIC_PREFIX }}fonts/fonts.css">
-    <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/bootstrap.css">
     <link rel="stylesheet" href="{{ STATIC_PREFIX }}icons/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/htmx.css">
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/masonry.css">
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/imagesLoaded.css">
     <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/viewer.css">
 
-    <link href="{{ STATIC_PREFIX }}css/style.css" rel="stylesheet">
-    <link href="{{ STATIC_PREFIX }}css/home.css" rel="stylesheet">
-    <link href="{{ STATIC_PREFIX }}css/categories.css" rel="stylesheet">
-    <link href="{{ STATIC_PREFIX }}css/category.css" rel="stylesheet">
-    <link href="{{ STATIC_PREFIX }}css/wallpaper.css" rel="stylesheet">
+    <script src="{{ STATIC_PREFIX }}js/vendor/htmx/htmx.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/bootstrap/bootstrap.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/masonry/masonry.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/imagesLoaded/imagesLoaded.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/viewer/viewer.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/alpine/alpine.js" defer></script>
 
-    <script type="module" src="{{ STATIC_PREFIX }}js/vendor/bootstrap.mjs"></script>
-    <script type="module" src="{{ STATIC_PREFIX }}js/vendor/htmx.mjs"></script>
-    <script type="module" src="{{ STATIC_PREFIX }}js/main.js"></script>
+    <link href="{{ STATIC_PREFIX }}css/style.css" rel="stylesheet">
+    <script src="{{ STATIC_PREFIX }}js/main.js" defer></script>
 </head>
 
 <body class="d-flex flex-column">
 
-    {% include 'includes/htmx_indicator.html' %}
+    {% include 'components/htmx_indicator.html' %}
 
-    {% include 'includes/navbar.html' %}
+    {% include 'components/navbar.html' %}
 
 
     <main class="flex-grow-1">
@@ -46,21 +50,16 @@
     </main>
 
 
-    {% include 'includes/footer.html' %}
+    {% include 'components/footer.html' %}
 
 
-    {% include 'includes/messages.html' %}
+    {% include 'components/messages.html' %}
 
 
-    {% block scripts %}{% endblock scripts %}
+    {% include 'components/toast_container.html' %}
 
-    <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 start-50 translate-middle-x"
-        style="z-index: 10000;">
-        <div class="toast-container position-sticky mb-4">
-        </div>
-    </div>
 
-    {% block extrabody %}{% endblock extrabody %}
+    {% include 'components/modal.html' %}
 
 </body>
 

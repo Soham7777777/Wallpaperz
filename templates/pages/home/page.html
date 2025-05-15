@@ -10,26 +10,21 @@ Home
 
 
 {% block main %}
-{% include 'pages/home/includes/hero.html' %}
+
+{% include 'pages/home/components/hero.html' %}
 
 
 {% if has_wallpaper_data %}
 <div class="container-fluid px-2 px-md-4 my-4">
-    {% include 'pages/home/includes/category_select_form.html' %}
+    <div id="wallpaper-filters" class="row g-3 align-items-center">
+        {% include 'pages/home/components/filters/category_filter.html' %}
+    </div>
 </div>
 
-{% include 'includes/grid.html' %}
+{% include 'components/grid.html' %}
 
 {% else %}
-{% include 'includes/empty_data.html' %}
+{% include 'components/empty_data.html' %}
 {% endif %}
 
-
 {% endblock main %}
-
-
-{% block scripts %}
-<script src="{{ STATIC_PREFIX }}js/vendor/imagesLoaded.js" defer></script>
-<script src="{{ STATIC_PREFIX }}js/vendor/masonry.js" defer></script>
-<script src="{{ STATIC_PREFIX }}js/scripts/grid.js" defer></script>
-{% endblock scripts %}

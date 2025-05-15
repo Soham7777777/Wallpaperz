@@ -1,4 +1,1 @@
-- 4 col wallpaper grid for xxl size
-- ship filters with grid
-- orientatin filter
-- The category filter dropdown should have previously selected value for "back button"
+- add orientatin filter

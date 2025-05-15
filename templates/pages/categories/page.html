@@ -13,11 +13,11 @@
     {% if categories %}
     <div class="row p-0 m-0" hx-boost="true">
         {% for category in categories %}
-        {% include 'pages/categories/includes/category_card.html' %}
+        {% include 'pages/categories/components/category_card.html' %}
         {% endfor %}
     </div>
     {% else %}
-    {% include 'includes/empty_data.html' %}
+    {% include 'components/empty_data.html' %}
     {% endif %}
 </div>
 {% endblock main %}

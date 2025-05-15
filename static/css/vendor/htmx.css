@@ -1,0 +1,14 @@
+.htmx-indicator {
+    z-index: -1;
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    z-index: 2000;
+    display: block;
+}
+
+.htmx-request.htmx-indicator {
+    z-index: 2000;
+    display: block;
+}
