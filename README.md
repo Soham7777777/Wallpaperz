@@ -27,7 +27,7 @@ All communication between the frontend and backend is done using HTML, making it
 - 🎨 [Bootstrap](https://getbootstrap.com/) — Layout and styling
 - 🌐 [Vanilla JavaScript](http://vanilla-js.com/) — Custom logic
 
-### 🖥️ Backend
+### 🗄️ Backend
 
 - 🐍 [Django](https://www.djangoproject.com/) — Robust [Python](https://www.python.org/) web framework
 - 🖼️ [Pillow](https://python-pillow.org/) — Image processing (e.g. image compression)
