@@ -29,9 +29,9 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
         if orientation:
             match orientation:
                 case 'landscape':
-                    pass
+                    queryset = queryset.filter(width__gte=models.F('height'))
                 case 'portrait':
-                    pass
+                    queryset = queryset.filter(width__lte=models.F('height'))
 
         return queryset
 
