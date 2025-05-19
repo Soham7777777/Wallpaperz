@@ -10,6 +10,10 @@ body {
     padding: 0;
 }
 
+select {
+    cursor: pointer;
+}
+
 .break-word {
     white-space: normal;
     overflow-wrap: break-word;

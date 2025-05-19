@@ -16,9 +16,7 @@ Home
 
 {% if has_wallpaper_data %}
 <div class="container-fluid px-2 px-md-4 my-4">
-    <div id="wallpaper-filters" class="row g-3 align-items-center">
-        {% include 'pages/home/components/filters/category_filter.html' %}
-    </div>
+    {% include 'pages/home/components/filters.html' %}
 </div>
 
 {% include 'components/grid.html' %}

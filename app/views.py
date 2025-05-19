@@ -25,10 +25,13 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
         if category_name:
             queryset = queryset.filter(category__slug__iexact=category_name)
 
-        # orientation = self.request.GET.get('orientation')
-        # if orientation:
-        #     match orientation:
-        #         case ""
+        orientation = self.request.GET.get('orientation')
+        if orientation:
+            match orientation:
+                case 'landscape':
+                    pass
+                case 'portrait':
+                    pass
 
         return queryset
 

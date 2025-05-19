@@ -1,28 +1,7 @@
-<div
-x-data="{
-    selectedCategory: sessionStorage.getItem('selectedCategory') || '',
-    updateSelection(value) {
-      this.selectedCategory = value;
-      sessionStorage.setItem('selectedCategory', value);
-    }
-}"
-class="col-12 col-md-auto" 
-style="cursor: pointer;">
+<select class="form-select" name="category">
+  <option value="">All Categories</option>
 
-    <select 
-    class="form-select rounded-0" 
-    id="categorySelect" 
-    name="category" 
-    hx-get="{% url 'wallpapers' %}"
-    hx-target="#wallpapers" 
-    style="cursor: pointer;"
-    x-model="selectedCategory"
-    @change="updateSelection($event.target.value)"
-    >
-        <option selected value="" x-bind:selected="selectedCategory === ''">All Categories</option>
-        {% for category in categories %}
-        <option value="{{ category.slug }}" x-bind:selected="selectedCategory === '{{ category.slug }}'">{{ category.name | title }}</option>
-        {% endfor %}
-
-    </select>
-</div>
+  {% for category in categories %}
+  <option value="{{ category.slug }}">{{ category.name | title }}</option>
+  {% endfor %}
+</select>
