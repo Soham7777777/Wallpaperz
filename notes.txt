@@ -1,0 +1,1 @@
+- Showing "No data" component when the filters fetch empty array of wallpapers

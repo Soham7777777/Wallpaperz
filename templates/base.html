@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="wallpapers-ajax-route" content="{% url 'wallpapers' %}">
 
     <title>{% block title %}{% endblock title %}</title>
 
@@ -27,15 +28,17 @@
     <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/imagesLoaded.css">
     <link rel="stylesheet" href="{{ STATIC_PREFIX }}css/vendor/viewer.css">
 
+    <script src="{{ STATIC_PREFIX }}js/main.js" defer></script>
+
     <script src="{{ STATIC_PREFIX }}js/vendor/htmx/htmx.js" defer></script>
     <script src="{{ STATIC_PREFIX }}js/vendor/bootstrap/bootstrap.js" defer></script>
     <script src="{{ STATIC_PREFIX }}js/vendor/masonry/masonry.js" defer></script>
     <script src="{{ STATIC_PREFIX }}js/vendor/imagesLoaded/imagesLoaded.js" defer></script>
     <script src="{{ STATIC_PREFIX }}js/vendor/viewer/viewer.js" defer></script>
+    <script src="{{ STATIC_PREFIX }}js/vendor/alpine/plugins/persist.js" defer></script>
     <script src="{{ STATIC_PREFIX }}js/vendor/alpine/alpine.js" defer></script>
 
     <link href="{{ STATIC_PREFIX }}css/style.css" rel="stylesheet">
-    <script src="{{ STATIC_PREFIX }}js/main.js" defer></script>
 </head>
 
 <body class="d-flex flex-column">

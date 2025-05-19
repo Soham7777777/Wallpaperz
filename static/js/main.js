@@ -2,6 +2,8 @@
 
 
 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const wallpapersAjaxRoute = document.querySelector('meta[name="wallpapers-ajax-route"]').getAttribute('content');
+
 
 var tooltipTriggerList;
 var tooltipList;
@@ -25,6 +27,34 @@ var viewer;
         initViewer();
     });
 
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data(
+            'filters',
+            function () {
+                return {
+                    category: this.$persist('').using(sessionStorage),
+                    orientation: this.$persist('').using(sessionStorage),
+                    fetchWallpapers() {
+                        htmx.ajax(
+                            'GET',
+                            `${wallpapersAjaxRoute}?${new URLSearchParams({ category: this.category, orientation: this.orientation })}`,
+                            '#wallpapers',
+                        );
+                    },
+                    init() {
+                        // This is used to sync the actual value of selected category with alpine this component
+                        //      - When a category is deleted, then first option is selected automatically but this won't be in sync with current value of alpine component
+                        // Always remember to add this for any dynamic/server-rendered data/component, in this case its category dropdown
+                        // This is the only solution to keep alpine data in sync with server rendered data and this is not a "hack", its part of the design and idea of "On init: if not sync then first sync with SSR data"
+                        if(this.category !== this.$refs.category_filter.value) {
+                            this.category = this.$refs.category_filter.value;
+                        }
+                    }
+                };
+            }
+        );
+    });
 })();
 
 
