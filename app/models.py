@@ -28,8 +28,12 @@ class Wallpaper(AbstractBaseModel):
                 min_height=1024,
             )
         ],
+        width_field='width',
+        height_field='height',
         max_length=256
     )
+    width = models.PositiveSmallIntegerField(null=True)
+    height = models.PositiveSmallIntegerField(null=True)
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE,

@@ -1,0 +1,7 @@
+- fix category page
+- add width and height field with allowed nulls then migrate and push
+- set data with data migration, migrate and push
+- set width and height to non nullable, migrate and push
+- fix the Wallpaper page
+- write logic for orientation filter, push
+- write frontend logic for applying filters, push
