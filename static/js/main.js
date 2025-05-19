@@ -43,12 +43,25 @@ var viewer;
                         );
                     },
                     init() {
-                        // This is used to sync the actual value of selected category with alpine this component
-                        //      - When a category is deleted, then first option is selected automatically but this won't be in sync with current value of alpine component
-                        // Always remember to add this for any dynamic/server-rendered data/component, in this case its category dropdown
-                        // This is the only solution to keep alpine data in sync with server rendered data and this is not a "hack", its part of the design and idea of "On init: if not sync then first sync with SSR data"
-                        if(this.category !== this.$refs.category_filter.value) {
+                        // keep all state in sync
+                        let optionNotFound = true;
+                        for(const option of this.$refs.category_filter.options) {
+                            if(this.category === option.value) {
+                                optionNotFound = false;
+                            }
+                        }
+                        if(optionNotFound === true) {
                             this.category = this.$refs.category_filter.value;
+                        }
+
+                        optionNotFound = true;
+                        for(const option of this.$refs.orientation_filter.options) {
+                            if(this.orientation === option.value) {
+                                optionNotFound = false;
+                            }
+                        }
+                        if(optionNotFound === true) {
+                            this.orientation = this.$refs.orientation_filter.value;
                         }
                     }
                 };

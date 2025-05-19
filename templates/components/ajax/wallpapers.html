@@ -1,5 +1,7 @@
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 
+{% if page_obj.object_list %}
 {% for wallpaper in page_obj.object_list %}
 <a href="{% url 'wallpaper' wallpaper.slug %}">
     <div class="grid-item loading-item">
@@ -7,6 +9,11 @@
     </div>
 </a>
 {% endfor %}
+{% else %}
+<div class="text-center">
+    <p class="text-muted">No wallpapers available to display.</p>
+</div>
+{% endif %}
 
 
 <div class="container container-load-more d-flex justify-content-center align-items-center mt-5"
