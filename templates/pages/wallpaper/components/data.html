@@ -1,16 +1,31 @@
+<div class="mb-5">
+<p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum atque dicta eius non, exercitationem quam!
+    Distinctio beatae voluptatibus nostrum numquam, officia dolore, consequuntur quam accusantium obcaecati at, enim
+    odio modi iure similique facere quasi ad illo doloremque esse? Mollitia sit adipisci quibusdam sunt temporibus
+    libero molestias dolorum aspernatur vero aut!
+</p>
+<a class="small" style="cursor: pointer;">
+    <i class="bi bi-pencil-fill me-2"></i>Edit description
+</a>
+</div>
+
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">UUID:</div>
     <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.uuid }}</div>
 </div>
+
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Dimension:</div>
     <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.width }} x {{ wallpaper.height }}
     </div>
 </div>
+
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Size:</div>
     <div class="ms-md-2 text-start flex-grow-1">{{ wallpaper.image.size|filesizeformat }}</div>
 </div>
+
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Category:</div>
     <div class="ms-md-2 text-start flex-grow-1">

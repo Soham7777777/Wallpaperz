@@ -15,6 +15,7 @@ from django.core import validators
 
 class Wallpaper(AbstractBaseModel):
     image = models.ImageField(
+        editable=False,
         unique=True,
         upload_to=UniqueFilePathGenerator(
             PurePath('wallpapers/'),
@@ -32,14 +33,20 @@ class Wallpaper(AbstractBaseModel):
         height_field='height',
         max_length=256
     )
-    width = models.PositiveSmallIntegerField()
-    height = models.PositiveSmallIntegerField()
+    width = models.PositiveSmallIntegerField(editable=False)
+    height = models.PositiveSmallIntegerField(editable=False)
+    description = models.TextField(
+        blank=True, 
+        max_length=512,
+        help_text='Provide a description to improve discoverability.'
+    )
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE,
         related_name='wallpapers',
     )
     slug = models.SlugField(
+        editable=False,
         max_length=32,
         validators=[
             validators.MinLengthValidator(32),
@@ -83,6 +90,7 @@ class Category(AbstractBaseModel):
         max_length=256
     )
     slug = models.SlugField(
+        editable=False,
         max_length=32
     )
 
