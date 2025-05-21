@@ -17,28 +17,31 @@
 
 
     <div class="container pt-3">
-        {% include 'pages/category/components/thumbnail.html' %}
+        {% include 'pages/category/components/thumbnail.html' with thumbnail=category.thumbnail only %}
     </div>
 
     <div class="container-fluid px-0 my-5 text-center">
-        {% include 'pages/category/components/actions.html' %}
+        <a href="{% url 'delete_category' category.slug %}" class="text-danger" style="text-decoration: underline;"
+            hx-get="{% url 'delete_category' category.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+            data-bs-target="#MainModal">
+            <i class="bi bi-trash me-2"></i>Delete this category
+        </a>
     </div>
 
     <h2>Wallpapers</h2>
     <hr>
 </div>
 
-    {% if category.wallpapers.exists %}
+{% if category.wallpapers.exists %}
 
-    {% url 'wallpapers' as base_url %}
-    {% querystring category=category.slug page=1 as query_str %}
-    {% with wallpapers_url=base_url|add:query_str %}
-    {% include 'components/grid.html' %}
-    {% endwith %}
+{% url 'wallpapers' as base_url %}
 
-    {% else %}
+{% querystring category=category.slug page=1 as query_str %}
+{% include 'components/grid.html' with wallpapers_url=base_url|add:query_str only %}
 
-    {% include 'components/empty_data.html' %}
+{% else %}
 
-    {% endif %}
+{% include 'components/empty_data.html' only %}
+
+{% endif %}
 {% endblock main %}

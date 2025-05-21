@@ -11,18 +11,18 @@ Home
 
 {% block main %}
 
-{% include 'pages/home/components/hero.html' %}
+{% include 'pages/home/components/hero.html' only %}
 
 
 {% if has_wallpaper_data %}
 <div class="container-fluid px-2 px-md-4 my-4">
-    {% include 'pages/home/components/filters.html' %}
+    {% include 'pages/home/components/filters.html' with categories=categories only %}
 </div>
 
-{% include 'components/grid.html' %}
+{% include 'components/grid.html' only %}
 
 {% else %}
-{% include 'components/empty_data.html' %}
+{% include 'components/empty_data.html' only %}
 {% endif %}
 
 {% endblock main %}

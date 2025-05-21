@@ -1,3 +1,14 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    categories: QuerySet[Category, NameAndSlugDict]
+  
+class NameAndSlugDict(TypedDict):
+    name: str
+    slug: str
+{% endcomment %}
+
+
 <div 
 class="row g-3 align-items-center"
 x-data="filters" 
@@ -5,11 +16,11 @@ x-effect="$data.fetchWallpapers()"
 >
 
     <div class="col-12 col-md-auto">
-        {% include 'pages/home/components/filters/category_filter.html' %}
+        {% include 'pages/home/components/filters/category_filter.html' with categories=categories only %}
     </div>
 
     <div class="col-12 col-md-auto">
-        {% include 'pages/home/components/filters/orientation_filter.html' %}
+        {% include 'pages/home/components/filters/orientation_filter.html' only %}
     </div>
     
 </div>

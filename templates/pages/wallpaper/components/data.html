@@ -1,3 +1,10 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    wallpaper: Wallpaper
+{% endcomment %}
+
+
 <div class="mb-5">
 <p>
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum atque dicta eius non, exercitationem quam!
@@ -32,4 +39,18 @@
         <a hx-boost="true" class="break-word" style="text-decoration: underline; color: blue;"
             href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
     </div>
+</div>
+
+<div class="ms-md-2 mt-4 flex-grow-1">
+    <a href="{% url 'delete_wallpaper' wallpaper.slug %}" 
+    class="text-danger" 
+    style="text-decoration: underline;"
+    hx-get="{% url 'delete_wallpaper' wallpaper.slug %}" 
+    hx-target="#MainModalContent" 
+    data-bs-toggle="modal"
+    data-bs-target="#MainModal"
+    >
+        <i class="bi bi-trash me-2"></i>Delete
+        this wallpaper
+    </a>
 </div>

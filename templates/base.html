@@ -43,9 +43,9 @@
 
 <body class="d-flex flex-column">
 
-    {% include 'components/htmx_indicator.html' %}
+    {% include 'components/htmx_indicator.html' only %}
 
-    {% include 'components/navbar.html' %}
+    {% include 'components/navbar.html' with request=request only %}
 
 
     <main class="flex-grow-1">
@@ -53,16 +53,28 @@
     </main>
 
 
-    {% include 'components/footer.html' %}
+    {% include 'components/footer.html' only %}
 
 
-    {% include 'components/messages.html' %}
+    {% include 'components/messages.html' with messages=messages only %}
 
 
-    {% include 'components/toast_container.html' %}
+    <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 start-50 translate-middle-x"
+        style="z-index: 10000;">
+        <div class="toast-container position-sticky mb-4">
+        </div>
+    </div>
 
 
-    {% include 'components/modal.html' %}
+    <div class="modal fade break-word" id="MainModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="MainModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div id="MainModalContent" class="modal-content rounded-0">
+
+            </div>
+        </div>
+    </div>
+
 
 </body>
 

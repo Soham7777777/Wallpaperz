@@ -11,6 +11,7 @@ from django.core import validators
 from django_stubs_ext.db.models.manager import RelatedManager
 from django.utils.text import slugify
 from django.core import validators
+from django.urls import reverse
 
 
 class Wallpaper(AbstractBaseModel):
@@ -60,6 +61,11 @@ class Wallpaper(AbstractBaseModel):
     @override
     def clean(self) -> None:
         self.slug = self.uuid.hex
+    
+
+    def get_absolute_url(self) -> str:
+        return reverse('wallpaper', args=[self.slug])
+
 
 
 class Category(AbstractBaseModel):
@@ -102,3 +108,7 @@ class Category(AbstractBaseModel):
     @override
     def clean(self) -> None:
         self.slug = slugify(self.name)
+
+
+    def get_absolute_url(self) -> str:
+        return reverse('category', args=[self.slug])

@@ -1,3 +1,14 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    category: Category
+{% endcomment %}
+
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
 <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
     <a href="{% url 'category' category.slug %}" style="text-decoration: none;">
         <div class="card categories-card rounded-0" data-bs-toggle="tooltip" data-bs-placement="bottom"

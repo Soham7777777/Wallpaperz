@@ -1,5 +1,13 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    page_obj: Paginator[Wallpaper]
+{% endcomment %}
+
+
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
+
 
 {% if page_obj.object_list %}
 {% for wallpaper in page_obj.object_list %}

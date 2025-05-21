@@ -1,6 +1,17 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    thumbnail: ImageFieldFile | None
+{% endcomment %}
+
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
 <div class="category-image-wrapper">
-    {% if category.thumbnail %}
-    <img src="{{ category.thumbnail.url }}" alt="Category Thumbnail"
+    {% if thumbnail %}
+    <img src="{{ thumbnail.url }}" alt="Category Thumbnail"
         class="img-fluid category-responsive-image" />
     {% else %}
     <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" alt="Category Thumbnail"

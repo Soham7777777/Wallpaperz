@@ -1,3 +1,14 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    categories: QuerySet[Category, NameAndSlugDict]
+  
+class NameAndSlugDict(TypedDict):
+    name: str
+    slug: str
+{% endcomment %}
+
+
 <select x-ref="category_filter" x-model.fill="category" class="form-select" name="category">
   <option value="">All Categories</option>
 

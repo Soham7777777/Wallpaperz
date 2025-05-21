@@ -12,19 +12,18 @@ Wallpaper
 
 {% block main %}
 <div class="container-fluid my-4">
-    
-    {% include 'pages/wallpaper/components/wallpaper.html' %}
-    
+
+    <div class="container-fluid d-flex m-0 p-0 justify-content-center align-items-start">
+        <img id="wallpaper-image-view" src="{{ wallpaper.image.url }}" alt="Wallpaper"
+            class="wallpaper-img img-fluid mx-auto">
+    </div>
+
     <hr>
 
     <div class="row justify-content-center">
         <div class="col-auto m-0 px-3">
-            
-            {% include 'pages/wallpaper/components/data.html' %}
-            {% include 'pages/wallpaper/components/actions.html' %}
-            
+            {% include 'pages/wallpaper/components/data.html' with wallpaper=wallpaper only %}
         </div>
     </div>
 </div>
 {% endblock main %}
-

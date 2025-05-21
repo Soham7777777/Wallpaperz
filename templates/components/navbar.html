@@ -1,3 +1,14 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    request: HttpRequest
+{% endcomment %}
+
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+
 {% url 'home' as home_path %}
 {% url 'categories' as categories_path %}
 
