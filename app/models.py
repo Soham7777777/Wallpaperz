@@ -37,7 +37,7 @@ class Wallpaper(AbstractBaseModel):
     width = models.PositiveSmallIntegerField(editable=False)
     height = models.PositiveSmallIntegerField(editable=False)
     description = models.TextField(
-        blank=True, 
+        blank=True,
         max_length=512,
         help_text='Provide a description to improve discoverability.'
     )

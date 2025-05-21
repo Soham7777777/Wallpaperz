@@ -1,9 +1,14 @@
+from typing import Any
 from django import forms
-from app.models import Category
-from functools import partial
+from app.models import Wallpaper
 
 
-class CategorySelectForm(forms.Form):
-    category = forms.ChoiceField(
-        choices=partial(Category.objects.values_list, 'name', flat=True)
-    )
+class WallpaperDescriptionModelForm(forms.ModelForm[Wallpaper]):
+    template_name = 'components/ajax/form.html'
+
+    class Meta:
+        model = Wallpaper
+        fields = ['description']
+        labels = {
+            'description': ''
+        }
