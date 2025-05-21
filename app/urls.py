@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, edit_wallpaper_description
 
 
 urlpatterns = [
@@ -68,6 +68,12 @@ urlpatterns = [
             context_object_name='wallpaper',
         ),
         name='delete_wallpaper'
+    ),
+
+    path(
+        'wallpapers/<slug:slug>/edit',
+        edit_wallpaper_description,
+        name='edit_wallpaper_description'
     ),
 
 ]

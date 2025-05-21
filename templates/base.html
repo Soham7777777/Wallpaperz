@@ -56,7 +56,7 @@
     {% include 'components/footer.html' only %}
 
 
-    {% include 'components/messages.html' with messages=messages only %}
+    {% include 'components/messages.html' with messages=messages oob_swap_messages=oob_swap_messages only %}
 
 
     <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 start-50 translate-middle-x"

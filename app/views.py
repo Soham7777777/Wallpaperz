@@ -1,5 +1,6 @@
 from typing import Any, override
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, Http404, QueryDict
+from django.shortcuts import render
 from app.models import Wallpaper, Category
 from django.db.models.query import QuerySet
 from django.views.generic import ListView, TemplateView, DeleteView
@@ -8,6 +9,7 @@ from django.db import models
 from common.models import AbstractBaseModel
 from django.forms.models import BaseModelForm
 from django.contrib import messages
+from app.forms import WallpaperDescriptionModelForm
 
 
 class FilteredWallpaperListView(ListView[Wallpaper]):
@@ -72,7 +74,25 @@ class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, BaseModelForm[AbstractB
         messages.success(request, self.get_success_message())
 
         response = HttpResponse()
-        response['HX-Redirect'] = self.get_success_url()
+        response['HX-Location'] = self.get_success_url()
         response.status_code = 204
 
         return response
+
+
+def edit_wallpaper_description(request: HttpRequest, slug: str) -> HttpResponse:
+    wallpaper = Wallpaper.objects.filter(slug=slug).first()
+
+    if wallpaper is not None:
+        form = WallpaperDescriptionModelForm(instance=wallpaper)
+
+        if request.method == 'PATCH':
+            form = WallpaperDescriptionModelForm(QueryDict(request.body), instance=wallpaper)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Description updated sucessfully')
+                return render(request, 'pages/wallpaper/page.html', dict(wallpaper=wallpaper, oob_swap_messages=True))
+            
+        return render(request, 'pages/wallpaper/components/ajax/forms/description_form.html', dict(form=form, wallpaper=wallpaper))
+
+    raise Http404()

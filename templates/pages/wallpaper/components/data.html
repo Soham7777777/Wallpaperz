@@ -1,20 +1,23 @@
 {% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
 {% comment %}
 Params:
-    wallpaper: Wallpaper
+wallpaper: Wallpaper
 {% endcomment %}
 
 
 <div class="mb-5">
-<p>
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum atque dicta eius non, exercitationem quam!
-    Distinctio beatae voluptatibus nostrum numquam, officia dolore, consequuntur quam accusantium obcaecati at, enim
-    odio modi iure similique facere quasi ad illo doloremque esse? Mollitia sit adipisci quibusdam sunt temporibus
-    libero molestias dolorum aspernatur vero aut!
-</p>
-<a class="small" style="cursor: pointer;">
-    <i class="bi bi-pencil-fill me-2"></i>Edit description
-</a>
+    <div id="wallpaper-description" hx-target="this" hx-swap="outerHTML">
+        <p class="break-word">
+            {% if wallpaper.description %}
+            {{ wallpaper.description }}
+            {% else %}
+            <span class="text-secondary">No description provided.</span>
+            {% endif %}
+        </p>
+        <a hx-get="{% url 'edit_wallpaper_description' wallpaper.slug %}" class="small" style="cursor: pointer;">
+            <i class="bi bi-pencil-fill me-2"></i>Edit description
+        </a>
+    </div>
 </div>
 
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
@@ -42,14 +45,9 @@ Params:
 </div>
 
 <div class="ms-md-2 mt-4 flex-grow-1">
-    <a href="{% url 'delete_wallpaper' wallpaper.slug %}" 
-    class="text-danger" 
-    style="text-decoration: underline;"
-    hx-get="{% url 'delete_wallpaper' wallpaper.slug %}" 
-    hx-target="#MainModalContent" 
-    data-bs-toggle="modal"
-    data-bs-target="#MainModal"
-    >
+    <a href="{% url 'delete_wallpaper' wallpaper.slug %}" class="text-danger" style="text-decoration: underline;"
+        hx-get="{% url 'delete_wallpaper' wallpaper.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+        data-bs-target="#MainModal">
         <i class="bi bi-trash me-2"></i>Delete
         this wallpaper
     </a>

@@ -2,10 +2,11 @@
 {% comment %}
 Params:
     messages: list[Any] | BaseStorage
+    oob_swap_messages: bool | None
 {% endcomment %}
 
 
-<div id="messages" style="display: none;">
+<div id="messages" style="display: none;" {% if oob_swap_messages %}hx-swap-oob="true"{% endif %}>
     {% if messages %}
     {% for message in messages %}
     <p>{{ message }}</p>
