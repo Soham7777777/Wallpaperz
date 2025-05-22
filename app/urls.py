@@ -2,7 +2,7 @@ from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
 from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelPatchView
-from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm, CategoryNameModelForm
+from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm, CategoryNameModelForm, CategoryThumbnailModelForm
 
 
 urlpatterns = [
@@ -95,6 +95,7 @@ urlpatterns = [
             success_message='Category updated sucessfully',
             query_to_form_map={
                 'name': (CategoryNameModelForm, 'pages/category/components/ajax/forms/name_form.html'),
+                'thumbnail': (CategoryThumbnailModelForm, 'pages/category/components/ajax/forms/thumbnail_form.html'),
             }
         ),
         name='edit_category'

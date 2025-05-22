@@ -1,7 +1,7 @@
 {% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
 {% comment %}
 Params:
-    thumbnail: ImageFieldFile | None
+thumbnail: ImageFieldFile | None
 {% endcomment %}
 
 
@@ -9,12 +9,11 @@ Params:
 {% get_static_prefix as STATIC_PREFIX %}
 
 
-<div class="category-image-wrapper">
+<div class="category-image-wrapper mb-2">
     {% if thumbnail %}
-    <img src="{{ thumbnail.url }}" alt="Category Thumbnail"
-        class="img-fluid category-responsive-image" />
+    <img src="{{ thumbnail.url }}" alt="Category Thumbnail" class="img-fluid category-responsive-image">
     {% else %}
     <img src="{{ STATIC_PREFIX }}img/default_category_thumbnail.png" alt="Category Thumbnail"
-        class="img-fluid category-responsive-image" />
+        class="img-fluid category-responsive-image">
     {% endif %}
 </div>

@@ -97,7 +97,7 @@ class ModelPatchView(View):
         
         slug = self.kwargs.get(self.slug_url_kwarg)
         obj = self.model.objects.filter(**{self.slug_field: slug}).first()
-        if not obj:
+        if obj is None:
             raise Http404(f'{self.model.__name__} with {self.slug_field}={slug} not found')
 
         return obj
@@ -133,11 +133,10 @@ class ModelPatchView(View):
         return render(request, form_template, context)
 
 
-    def patch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         form_class, form_template = self.get_form(request)
         instance = self.get_object()
-        patch_data = QueryDict(request.body)
-        form = form_class(patch_data, instance=instance)
+        form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
             form.save()

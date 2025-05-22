@@ -6,7 +6,7 @@ Params:
 {% endcomment %}
 
 
-<form class="" hx-patch="{% url 'edit_wallpaper' wallpaper.slug %}{% querystring form='category' %}" hx-target="this" hx-swap="outerHTML" hx-select="#wallpaper-category" id="wallpaper-category">
+<form class="" hx-post="{% url 'edit_wallpaper' wallpaper.slug %}{% querystring form='category' %}" hx-target="this" hx-swap="outerHTML" hx-select="#wallpaper-category" id="wallpaper-category">
     {{ form }}
     <div class="row px-3">
         <button type="button" hx-get="{% url 'wallpaper' wallpaper.slug %}" class="mb-2 mb-md-0 me-2 btn btn-secondary col-12 col-md-auto">

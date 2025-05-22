@@ -23,11 +23,16 @@ form: Form
   <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
   {% endif %}
 
-  {% if field.errors %}
-    {{ field|add_class:"is-invalid" }}
+  {% if form.is_bound %}
+    {% if field.errors %}
+      {{ field|add_class:"is-invalid" }}
+    {% else %}
+      {{ field|add_class:"is-valid" }}
+    {% endif %}
   {% else %}
-    {{ field|add_class:"is-valid" }}
+    {{ field }}
   {% endif %}
+
 
   {% if field.help_text %}
   <div class="form-text">

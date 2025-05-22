@@ -1,0 +1,2 @@
+- Help text issue on thumbnail form
+- Showing form errors for thumbnail form

@@ -16,7 +16,6 @@ from django.urls import reverse
 
 class Wallpaper(AbstractBaseModel):
     image = models.ImageField(
-        editable=False,
         unique=True,
         upload_to=UniqueFilePathGenerator(
             PurePath('wallpapers/'),
@@ -94,7 +93,8 @@ class Category(AbstractBaseModel):
                 min_height=512,
             )
         ],
-        max_length=256
+        max_length=256,
+        help_text='The thumbnail must be within 1 MB in size and it must have JPEG, PNG or WEBP image format with appropriate file extension. The preferred aspect ratio is 16:9.'
     )
     slug = models.SlugField(
         editable=False,

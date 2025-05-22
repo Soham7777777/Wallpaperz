@@ -18,8 +18,14 @@
     <hr style="height: 5px; background-color: red; border: none;">
 
 
-    <div class="container pt-3">
+    <div id="category-thumbnail" class="container pt-3 text-center">
         {% include 'pages/category/components/thumbnail.html' with thumbnail=category.thumbnail only %}
+        <div hx-target="this" hx-swap="outerHTML" id="category-thumbnail-edit-actions">
+            <a hx-get="{% url 'edit_category' category.slug %}{% querystring form='thumbnail' %}" class="small"
+                style="cursor: pointer;">
+                <i class="bi bi-pencil-fill me-2"></i>Edit thumbnail
+            </a>
+        </div>
     </div>
 
     <div class="container-fluid px-0 my-5 text-center">

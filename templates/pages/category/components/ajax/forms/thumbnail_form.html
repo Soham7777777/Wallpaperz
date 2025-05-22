@@ -1,0 +1,23 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+form: CategoryThumbnailModelForm
+category: Category
+{% endcomment %}
+
+
+
+<form id="category-thumbnail-edit-form"
+    hx-post="{% url 'edit_category' category.slug %}{% querystring form='thumbnail' %}" hx-target="#category-thumbnail"
+    hx-swap="outerHTML" hx-select="#category-thumbnail" enctype="multipart/form-data" hx-encoding='multipart/form-data'
+    class="col-md-6 ms-auto me-auto">
+
+    {{ form }}
+
+    <div class="row px-3">
+        <button type="button" class="mb-2 mb-md-0 me-2 btn btn-secondary col-12 col-md-auto" hx-get="{% url 'category' category.slug %}"
+            hx-target="#category-thumbnail-edit-form" hx-select="#category-thumbnail-edit-actions">Cancel</button>
+            
+        <button type="submit" class="btn btn-info col-12 col-md-auto">Update</button>
+    </div>
+</form>
