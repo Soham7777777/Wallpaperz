@@ -112,3 +112,8 @@ class Category(AbstractBaseModel):
 
     def get_absolute_url(self) -> str:
         return reverse('category', args=[self.slug])
+
+
+    @override
+    def __str__(self) -> str:
+        return self.name.title()

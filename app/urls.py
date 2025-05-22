@@ -1,7 +1,8 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, edit_wallpaper_description
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelPatchView
+from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm
 
 
 urlpatterns = [
@@ -72,8 +73,16 @@ urlpatterns = [
 
     path(
         'wallpapers/<slug:slug>/edit',
-        edit_wallpaper_description,
-        name='edit_wallpaper_description'
+        ModelPatchView.as_view(
+            model=Wallpaper,
+            patch_template_name='pages/wallpaper/page.html',
+            success_message='Wallpaper updated sucessfully',
+            query_to_form_map={
+                'description': (WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/forms/description_form.html'),
+                'category': (WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/forms/category_form.html')
+            }
+        ),
+        name='edit_model'
     ),
 
 ]

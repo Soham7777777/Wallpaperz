@@ -14,7 +14,8 @@ wallpaper: Wallpaper
             <span class="text-secondary">No description provided.</span>
             {% endif %}
         </p>
-        <a hx-get="{% url 'edit_wallpaper_description' wallpaper.slug %}" class="small" style="cursor: pointer;">
+        <a hx-get="{% url 'edit_model' wallpaper.slug %}{% querystring form='description' %}" class="small"
+            style="cursor: pointer;">
             <i class="bi bi-pencil-fill me-2"></i>Edit description
         </a>
     </div>
@@ -38,9 +39,16 @@ wallpaper: Wallpaper
 
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Category:</div>
-    <div class="ms-md-2 text-start flex-grow-1">
-        <a hx-boost="true" class="break-word" style="text-decoration: underline; color: blue;"
-            href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
+
+    <div id="wallpaper-category" hx-target="this" hx-swap="outerHTML">
+        <div class="ms-md-2 mb-2 me-md-4 text-start">
+            <a hx-boost="true" hx-target="body" class="break-word" style="text-decoration: underline; color: blue;"
+                href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
+        </div>
+        <a hx-get="{% url 'edit_model' wallpaper.slug %}{% querystring form='category' %}" class="small"
+            style="cursor: pointer;">
+            <i class="bi bi-pencil-fill me-2"></i>Edit category
+        </a>
     </div>
 </div>
 

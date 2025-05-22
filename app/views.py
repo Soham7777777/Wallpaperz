@@ -1,9 +1,10 @@
 from typing import Any, override
 from django.http import HttpRequest, HttpResponse, Http404, QueryDict
 from django.shortcuts import render
+from django.forms import ModelForm
 from app.models import Wallpaper, Category
 from django.db.models.query import QuerySet
-from django.views.generic import ListView, TemplateView, DeleteView
+from django.views.generic import ListView, TemplateView, DeleteView, View
 from typing import cast
 from django.db import models
 from common.models import AbstractBaseModel
@@ -80,19 +81,59 @@ class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, BaseModelForm[AbstractB
         return response
 
 
-def edit_wallpaper_description(request: HttpRequest, slug: str) -> HttpResponse:
-    wallpaper = Wallpaper.objects.filter(slug=slug).first()
+class ModelPatchView(View):
+    model: type[AbstractBaseModel] | None = None
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    success_message = ''
+    extra_context: dict[str, Any] | None = None
+    patch_template_name = ''
+    query_to_form_map: dict[str, tuple[type[ModelForm[AbstractBaseModel]], str]] = {}
 
-    if wallpaper is not None:
-        form = WallpaperDescriptionModelForm(instance=wallpaper)
 
-        if request.method == 'PATCH':
-            form = WallpaperDescriptionModelForm(QueryDict(request.body), instance=wallpaper)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Description updated sucessfully')
-                return render(request, 'pages/wallpaper/page.html', dict(wallpaper=wallpaper, oob_swap_messages=True))
-            
-        return render(request, 'pages/wallpaper/components/ajax/forms/description_form.html', dict(form=form, wallpaper=wallpaper))
+    def get_object(self) -> AbstractBaseModel:
+        if self.model is None:
+            raise AttributeError('Model is required for this class based view.')
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        obj = self.model.objects.filter(**{self.slug_field: slug}).first()
+        if not obj:
+            raise Http404(f'{self.model.__name__} with {self.slug_field}={slug} not found')
+        return obj
 
-    raise Http404()
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = {
+            **(self.extra_context or {}),
+            **kwargs,
+        }
+        return context
+
+
+    def get_form(self, request: HttpRequest) -> tuple[type[ModelForm[AbstractBaseModel]], str]:
+        form_name = request.GET.get('form')
+        if not form_name or form_name not in self.query_to_form_map:
+            raise Http404('Form type not found.')
+        form_class, form_template = self.query_to_form_map[form_name]
+        return form_class, form_template
+
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form_class, form_template = self.get_form(request)
+        instance = self.get_object()
+        form = form_class(instance=instance)
+        context = self.get_context_data(form=form, wallpaper=instance)
+        return render(request, form_template, context)
+
+
+    def patch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form_class, form_template = self.get_form(request)
+        instance = self.get_object()
+        patch_data = QueryDict(request.body)
+        form = form_class(patch_data, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, self.success_message)
+            context = self.get_context_data(wallpaper=instance, oob_swap_messages=True)
+            return render(request, self.patch_template_name, context)
+        context = self.get_context_data(form=form, wallpaper=instance)
+        return render(request, form_template, context)
