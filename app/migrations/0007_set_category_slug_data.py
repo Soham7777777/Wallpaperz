@@ -3,14 +3,13 @@
 from django.db import migrations
 from django.apps.registry import Apps
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
-from django.utils.text import slugify
 
 
 def set_category_slugs(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     Category = apps.get_model('app', 'Category')
 
     for category in Category.objects.all():
-        category.slug = slugify(category.name)
+        category.slug = category.uuid.hex
         category.save()
 
 

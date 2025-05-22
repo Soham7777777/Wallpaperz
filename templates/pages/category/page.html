@@ -8,7 +8,13 @@
 
 {% block main %}
 <div class="container-fluid px-2 px-md-4 my-4">
-    <h1 class="break-word" id="category-title"> {{ category.name | title }} </h1>
+    <div id="category-name" hx-target="this" hx-swap="outerHTML">
+        <h1 class="break-word" id="category-title"> {{ category.name | title }} </h1>
+        <a hx-get="{% url 'edit_category' category.slug %}{% querystring form='name' %}" class="small"
+            style="cursor: pointer;">
+            <i class="bi bi-pencil-fill me-2"></i>Edit name
+        </a>
+    </div>
     <hr style="height: 5px; background-color: red; border: none;">
 
 

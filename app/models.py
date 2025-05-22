@@ -76,6 +76,7 @@ class Category(AbstractBaseModel):
             validators.MinLengthValidator(2),
             regexes.name_regex_validator,
         ],
+        help_text='Provide a unique category name with only lowercase English letters or spaces that is no longer than 32 charcters long.'
     )
     thumbnail = models.ImageField(
         null=True,
@@ -107,7 +108,7 @@ class Category(AbstractBaseModel):
 
     @override
     def clean(self) -> None:
-        self.slug = slugify(self.name)
+        self.slug = self.uuid.hex
 
 
     def get_absolute_url(self) -> str:

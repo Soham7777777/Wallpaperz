@@ -1,4 +1,4 @@
-{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}COMPONENT TYPE: FORM{% endcomment %}
 {% comment %}
 Params:
 form: Form
@@ -22,18 +22,6 @@ form: Form
   {% if field.label %}
   <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
   {% endif %}
-
-  {% comment %}
-  {% if form.is_bound %}
-  {% if field.errors %}
-  {{ field|add_class:"form-control is-invalid" }}
-  {% else %}
-  {{ field|add_class:"form-control is-valid" }}
-  {% endif %}
-  {% else %}
-  {{ field|add_class:"form-control" }}
-  {% endif %}
-  {% endcomment %}
 
   {% if field.errors %}
     {{ field|add_class:"is-invalid" }}

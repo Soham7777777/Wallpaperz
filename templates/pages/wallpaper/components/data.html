@@ -14,7 +14,7 @@ wallpaper: Wallpaper
             <span class="text-secondary">No description provided.</span>
             {% endif %}
         </p>
-        <a hx-get="{% url 'edit_model' wallpaper.slug %}{% querystring form='description' %}" class="small"
+        <a hx-get="{% url 'edit_wallpaper' wallpaper.slug %}{% querystring form='description' %}" class="small"
             style="cursor: pointer;">
             <i class="bi bi-pencil-fill me-2"></i>Edit description
         </a>
@@ -45,7 +45,7 @@ wallpaper: Wallpaper
             <a hx-boost="true" hx-target="body" class="break-word" style="text-decoration: underline; color: blue;"
                 href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
         </div>
-        <a hx-get="{% url 'edit_model' wallpaper.slug %}{% querystring form='category' %}" class="small"
+        <a hx-get="{% url 'edit_wallpaper' wallpaper.slug %}{% querystring form='category' %}" class="small"
             style="cursor: pointer;">
             <i class="bi bi-pencil-fill me-2"></i>Edit category
         </a>

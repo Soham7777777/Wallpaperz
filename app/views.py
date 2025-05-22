@@ -10,7 +10,6 @@ from django.db import models
 from common.models import AbstractBaseModel
 from django.forms.models import BaseModelForm
 from django.contrib import messages
-from app.forms import WallpaperDescriptionModelForm
 
 
 class FilteredWallpaperListView(ListView[Wallpaper]):
@@ -85,6 +84,7 @@ class ModelPatchView(View):
     model: type[AbstractBaseModel] | None = None
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+    context_instance_name = ''
     success_message = ''
     extra_context: dict[str, Any] | None = None
     patch_template_name = ''
@@ -93,11 +93,13 @@ class ModelPatchView(View):
 
     def get_object(self) -> AbstractBaseModel:
         if self.model is None:
-            raise AttributeError('Model is required for this class based view.')
+            raise AttributeError('"model" argument is required for this class based view.')
+        
         slug = self.kwargs.get(self.slug_url_kwarg)
         obj = self.model.objects.filter(**{self.slug_field: slug}).first()
         if not obj:
             raise Http404(f'{self.model.__name__} with {self.slug_field}={slug} not found')
+
         return obj
 
 
@@ -106,13 +108,19 @@ class ModelPatchView(View):
             **(self.extra_context or {}),
             **kwargs,
         }
+        if self.context_instance_name:
+            context[self.context_instance_name] = self.get_object()
+        else:
+            raise AttributeError('"context_instance_name" is required for this class based view')
         return context
 
 
     def get_form(self, request: HttpRequest) -> tuple[type[ModelForm[AbstractBaseModel]], str]:
         form_name = request.GET.get('form')
+
         if not form_name or form_name not in self.query_to_form_map:
             raise Http404('Form type not found.')
+
         form_class, form_template = self.query_to_form_map[form_name]
         return form_class, form_template
 
@@ -121,7 +129,7 @@ class ModelPatchView(View):
         form_class, form_template = self.get_form(request)
         instance = self.get_object()
         form = form_class(instance=instance)
-        context = self.get_context_data(form=form, wallpaper=instance)
+        context = self.get_context_data(form=form)
         return render(request, form_template, context)
 
 
@@ -130,10 +138,13 @@ class ModelPatchView(View):
         instance = self.get_object()
         patch_data = QueryDict(request.body)
         form = form_class(patch_data, instance=instance)
+
         if form.is_valid():
             form.save()
-            messages.success(request, self.success_message)
-            context = self.get_context_data(wallpaper=instance, oob_swap_messages=True)
+            if form.has_changed():
+                messages.success(request, self.success_message)
+            context = self.get_context_data(oob_swap_messages=True)
             return render(request, self.patch_template_name, context)
-        context = self.get_context_data(form=form, wallpaper=instance)
+        
+        context = self.get_context_data(form=form)
         return render(request, form_template, context)

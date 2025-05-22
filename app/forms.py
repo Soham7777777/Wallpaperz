@@ -4,7 +4,7 @@ from app.models import Category, Wallpaper
 
 
 class WallpaperDescriptionModelForm(forms.ModelForm[Wallpaper]):
-    template_name = 'components/ajax/form.html'
+    template_name = 'components/forms/form.html'
 
     class Meta:
         model = Wallpaper
@@ -21,7 +21,7 @@ class WallpaperDescriptionModelForm(forms.ModelForm[Wallpaper]):
     
 
 class WallpaperCategoryModelForm(forms.ModelForm[Wallpaper]):
-    template_name = 'components/ajax/form.html'
+    template_name = 'components/forms/form.html'
 
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -38,4 +38,21 @@ class WallpaperCategoryModelForm(forms.ModelForm[Wallpaper]):
         }
         widgets = {
             'category': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+
+class CategoryNameModelForm(forms.ModelForm[Category]):
+    template_name = 'components/forms/form.html'
+
+    class Meta:
+        model = Category
+        fields = ['name']
+        labels = {
+            'name': ''
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'placeholder': 'Category name here...',
+                'class': 'form-control'
+            }),
         }
