@@ -1,0 +1,13 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    editing_url: str
+    editing_form_name: str
+    editing_name: str
+{% endcomment %}
+
+
+<a hx-get="{{ editing_url }}{% querystring form=editing_form_name %}" class="small"
+    style="cursor: pointer;">
+    <i class="bi bi-pencil-fill me-2"></i>Edit {{ editing_name }}
+</a>

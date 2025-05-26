@@ -5,6 +5,9 @@ wallpaper: Wallpaper
 {% endcomment %}
 
 
+{% url 'edit_wallpaper' wallpaper.slug as wallpaper_editing_url %}
+
+
 <div class="mb-5">
     <div id="wallpaper-description" hx-target="this" hx-swap="outerHTML">
         <p class="break-word">
@@ -14,10 +17,13 @@ wallpaper: Wallpaper
             <span class="text-secondary">No description provided.</span>
             {% endif %}
         </p>
+        {% comment %}
         <a hx-get="{% url 'edit_wallpaper' wallpaper.slug %}{% querystring form='description' %}" class="small"
             style="cursor: pointer;">
             <i class="bi bi-pencil-fill me-2"></i>Edit description
         </a>
+        {% endcomment %}
+        {% include 'components/editing_link.html' with editing_url=wallpaper_editing_url editing_form_name='description' editing_name='description' only %}
     </div>
 </div>
 

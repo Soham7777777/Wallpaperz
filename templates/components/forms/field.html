@@ -1,0 +1,27 @@
+{% comment %}COMPONENT TYPE: FORM{% endcomment %}
+{% comment %}
+Params:
+field: BoundField
+{% endcomment %}
+
+
+{% if field.label %}
+{{ field.label_tag }}
+{% endif %}
+
+
+{{ field }}
+
+
+{% if field.help_text %}
+<div class="form-text" {% if field.auto_id %} id="{{ field.auto_id }}_helptext" {% endif %}>{{ field.help_text|safe }}
+</div>{% endif %}
+
+
+{% if field.errors %}
+<ul class="text-danger invalid-feedback d-block p-0" {% if field.auto_id %} id="{{ field.auto_id }}_error" {% endif %} style="list-style: none;">
+    {% for error in field.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endif %}

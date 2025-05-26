@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks',
     'common',
     'app',
 ]
@@ -54,7 +53,6 @@ TEMPLATES = [
             BASE_DIR / 'templates',
             django.__path__[0] + '/forms/templates',
         ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -65,7 +63,7 @@ TEMPLATES = [
     },
 ]
 
-FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+FORM_RENDERER = 'project.forms.renderers.BootstrapFormRendered'
 
 WSGI_APPLICATION = 'project.wsgi.application'
 

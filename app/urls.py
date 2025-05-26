@@ -79,7 +79,7 @@ urlpatterns = [
             patch_template_name='pages/wallpaper/page.html',
             success_message='Wallpaper updated sucessfully',
             query_to_form_map={
-                'description': (WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/forms/description_form.html'),
+                'description': (WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/description_editing_form.html'),
                 'category': (WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/forms/category_form.html')
             }
         ),

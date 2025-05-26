@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wallpaper',
             name='image',
-            field=models.ImageField(editable=False, height_field='height', max_length=256, unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
+            field=models.ImageField(height_field='height', max_length=256, unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
         ),
         migrations.AlterField(
             model_name='wallpaper',
@@ -44,5 +44,15 @@ class Migration(migrations.Migration):
             model_name='wallpaper',
             name='width',
             field=models.PositiveSmallIntegerField(editable=False),
+        ),
+        migrations.AlterField(
+            model_name='category',
+            name='name',
+            field=models.CharField(help_text='Provide a unique category name with only lowercase English letters or spaces that is no longer than 32 charcters long.', max_length=32, unique=True, validators=[django.core.validators.MinLengthValidator(2), django.core.validators.RegexValidator('^(?!.*\\s{2,})[a-z]+(?: [a-z]+)*$', 'Ensure that the name contains only lowercase English letters or spaces, with no leading or trailing spaces and no consecutive spaces.')]),
+        ),
+        migrations.AlterField(
+            model_name='category',
+            name='thumbnail',
+            field=models.ImageField(help_text='The thumbnail must be within 1 MB in size and it must have JPEG, PNG or WEBP image format with appropriate file extension. The preferred aspect ratio is 16:9.', max_length=256, null=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('category-thumbnails'), 'image'), validators=[common.validators.MaxFileSizeValidator(1048576), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'], common.image_utils.ImageFormat['PNG'], common.image_utils.ImageFormat['WEBP'])), common.validators.ImageDimensionValidator(min_height=512, min_width=512)]),
         ),
     ]

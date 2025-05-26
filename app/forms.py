@@ -1,13 +1,10 @@
-from typing import Any, cast, override
+from typing import Any, cast
 from django import forms
 from app.models import Category, Wallpaper
-from django.db.models.fields.files import ImageFieldFile
-from django.core.files.uploadedfile import UploadedFile
-from django.core.exceptions import ValidationError
+from project.forms import BootstrapForm
 
 
-class WallpaperDescriptionModelForm(forms.ModelForm[Wallpaper]):
-    template_name = 'components/forms/form.html'
+class WallpaperDescriptionModelForm(BootstrapForm, forms.ModelForm[Wallpaper]):
 
     class Meta:
         model = Wallpaper
@@ -18,14 +15,11 @@ class WallpaperDescriptionModelForm(forms.ModelForm[Wallpaper]):
         widgets = {
             'description': forms.Textarea(attrs={
                 'placeholder': 'Write description under 512 characters...',
-                'class': 'form-control'
             }),
         }
     
 
-class WallpaperCategoryModelForm(forms.ModelForm[Wallpaper]):
-    template_name = 'components/forms/form.html'
-
+class WallpaperCategoryModelForm(BootstrapForm, forms.ModelForm[Wallpaper]):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -39,13 +33,9 @@ class WallpaperCategoryModelForm(forms.ModelForm[Wallpaper]):
         labels = {
             'category': ''
         }
-        widgets = {
-            'category': forms.Select(attrs={'class': 'form-select'}),
-        }
 
 
-class CategoryNameModelForm(forms.ModelForm[Category]):
-    template_name = 'components/forms/form.html'
+class CategoryNameModelForm(BootstrapForm, forms.ModelForm[Category]):
 
     class Meta:
         model = Category
@@ -56,39 +46,41 @@ class CategoryNameModelForm(forms.ModelForm[Category]):
         widgets = {
             'name': forms.TextInput(attrs={
                 'placeholder': 'Category name here...',
-                'class': 'form-control'
             }),
         }
 
 
-class CategoryThumbnailModelForm(forms.ModelForm[Category]):
-    template_name = 'components/forms/form.html'
+class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
 
-    thumbnail = forms.ImageField(label='', required=True, widget=forms.FileInput(attrs={'class': 'form-control'}))
-
-
-    def clean_thumbnail(self) -> UploadedFile:
-        uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
-
-        if not uploaded_file.name:
-            raise ValidationError("Uploaded file must have a name.")
-
-        return uploaded_file
+    thumbnail = forms.ImageField(
+        label='', 
+        required=True, 
+        widget=forms.FileInput()    
+    )
 
 
-    @override
-    def save(self, commit: bool = True) -> Category:
-        uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
+    # def clean_thumbnail(self) -> UploadedFile:
+    #     uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
 
-        if uploaded_file.name is None:
-            raise ValueError("File name is missing; this should have been caught in clean_thumbnail.")
+    #     if not uploaded_file.name:
+    #         raise ValidationError("Uploaded file must have a name.")
 
-        thumbnail_field = cast(ImageFieldFile, self.instance.thumbnail)
-        thumbnail_field.save(uploaded_file.name, uploaded_file, save=commit)
+    #     return uploaded_file
 
-        return super().save(commit)
+
+    # @override
+    # def save(self, commit: bool = True) -> Category:
+    #     uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
+
+    #     if uploaded_file.name is None:
+    #         raise ValueError("File name is missing; this should have been caught in clean_thumbnail.")
+
+    #     thumbnail_field = cast(ImageFieldFile, self.instance.thumbnail)
+    #     thumbnail_field.save(uploaded_file.name, uploaded_file, save=commit)
+
+    #     return super().save(commit)
 
 
     class Meta:
         model = Category
-        fields = []
+        fields = ['thumbnail']

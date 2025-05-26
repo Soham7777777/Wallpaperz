@@ -1,0 +1,30 @@
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    form: BootstrapForm
+    editing_url: str
+    editing_element_id: str
+    editing_data_url: str
+{% endcomment %}
+
+<form 
+hx-post="{{ editing_url }}{% querystring %}" 
+hx-target="this" 
+hx-swap="outerHTML"
+hx-select="#{{ editing_element_id }}" 
+id="{{ editing_element_id }}"
+>
+
+    {{ form }}
+
+    <div class="row px-3">
+        <button type="button" hx-get="{{ editing_data_url }}" class="mb-2 mb-md-0 me-2 btn btn-secondary col-12 col-md-auto">
+            Cancle
+        </button>
+
+        <button type="submit" class="btn btn-info col-12 col-md-auto">
+            Update
+        </button>
+    </div>
+
+</form>
