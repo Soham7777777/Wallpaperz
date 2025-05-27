@@ -1,0 +1,14 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    form: WallpaperCategoryModelForm
+    wallpaper: Wallpaper
+{% endcomment %}
+
+
+{% url 'wallpaper' wallpaper.slug as editing_data_url %}
+
+
+<div id="wallpaper-category-form-wrapper">
+    {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='wallpaper-category' editing_data_url=editing_data_url only %}
+</div>

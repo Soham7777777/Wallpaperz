@@ -1,2 +1,5 @@
-- Help text issue on thumbnail form
-- Showing form errors for thumbnail form
+- Solving the form issue - when there is form with error message, then pressing on cancle or update results in client side error
+- Making the category name editing form smaller
+- providing thumbnail delete option
+- form should save only if it has changed
+ 

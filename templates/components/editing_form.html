@@ -5,14 +5,19 @@ Params:
     editing_url: str
     editing_element_id: str
     editing_data_url: str
+    is_multipart: bool | None
 {% endcomment %}
 
 <form 
 hx-post="{{ editing_url }}{% querystring %}" 
-hx-target="this" 
+hx-target="closest #{{ editing_element_id }}-form-wrapper"
 hx-swap="outerHTML"
 hx-select="#{{ editing_element_id }}" 
 id="{{ editing_element_id }}"
+{% if is_multipart %}
+enctype="multipart/form-data"
+hx-encoding="multipart/form-data"
+{% endif %}
 >
 
     {{ form }}

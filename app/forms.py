@@ -52,11 +52,11 @@ class CategoryNameModelForm(BootstrapForm, forms.ModelForm[Category]):
 
 class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
 
-    thumbnail = forms.ImageField(
-        label='', 
-        required=True, 
-        widget=forms.FileInput()    
-    )
+    # thumbnail = forms.ImageField(
+    #     label='',
+    #     required=True, 
+    #     widget=forms.FileInput()
+    # )
 
 
     # def clean_thumbnail(self) -> UploadedFile:
@@ -84,3 +84,9 @@ class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
     class Meta:
         model = Category
         fields = ['thumbnail']
+        labels = {
+            'thumbnail': ''
+        }
+        widgets = {
+            'thumbnail': forms.FileInput()
+        }

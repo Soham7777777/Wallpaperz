@@ -12,7 +12,7 @@ Params:
         {% if wallpapers_url %}
         <div
         hx-get="{{ wallpapers_url }}" 
-        hx-trigger="revealed"
+        hx-trigger="load"
         hx-swap="outerHTML"
         hx-target="this"
         ></div>

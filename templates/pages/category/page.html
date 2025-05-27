@@ -7,25 +7,19 @@
 
 
 {% block main %}
+{% url 'edit_category' category.slug as category_editing_url %}
+
 <div class="container-fluid px-2 px-md-4 my-4">
     <div id="category-name" hx-target="this" hx-swap="outerHTML">
         <h1 class="break-word" id="category-title"> {{ category.name | title }} </h1>
-        <a hx-get="{% url 'edit_category' category.slug %}{% querystring form='name' %}" class="small"
-            style="cursor: pointer;">
-            <i class="bi bi-pencil-fill me-2"></i>Edit name
-        </a>
+        {% include 'components/editing_link.html' with editing_url=category_editing_url editing_form_name='name' editing_name='name' only %}
     </div>
     <hr style="height: 5px; background-color: red; border: none;">
 
 
-    <div id="category-thumbnail" class="container pt-3 text-center">
+    <div id="category-thumbnail" hx-target="this" hx-swap="outerHTML" class="container pt-3 text-center">
         {% include 'pages/category/components/thumbnail.html' with thumbnail=category.thumbnail only %}
-        <div hx-target="this" hx-swap="outerHTML" id="category-thumbnail-edit-actions">
-            <a hx-get="{% url 'edit_category' category.slug %}{% querystring form='thumbnail' %}" class="small"
-                style="cursor: pointer;">
-                <i class="bi bi-pencil-fill me-2"></i>Edit thumbnail
-            </a>
-        </div>
+        {% include 'components/editing_link.html' with editing_url=category_editing_url editing_form_name='thumbnail' editing_name='thumbnail' only %}
     </div>
 
     <div class="container-fluid px-0 my-5 text-center">

@@ -1,0 +1,16 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    form: CategoryThumbnailModelForm
+    category: Category
+{% endcomment %}
+
+
+{% url 'category' category.slug as editing_data_url %}
+
+
+<div class="row justify-content-center" id="category-thumbnail-form-wrapper">
+    <div class="col-4">
+        {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='category-thumbnail' editing_data_url=editing_data_url is_multipart=True only %}
+    </div>
+</div>
