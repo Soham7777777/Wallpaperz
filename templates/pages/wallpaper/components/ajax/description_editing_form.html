@@ -9,6 +9,6 @@ Params:
 {% url 'wallpaper' wallpaper.slug as editing_data_url %}
 
 
-<div id="wallpaper-description-form-wrapper">
+<div id="wallpaper-description">
     {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='wallpaper-description' editing_data_url=editing_data_url only %}
 </div>

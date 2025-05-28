@@ -2,7 +2,7 @@ from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
 from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelPatchView
-from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm, CategoryNameModelForm, CategoryThumbnailModelForm
+from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm, CategoryNameModelForm, CategoryThumbnailModelForm, CategoryThumbnailDeleteModelForm
 
 
 urlpatterns = [
@@ -96,6 +96,7 @@ urlpatterns = [
             query_to_form_map={
                 'name': (CategoryNameModelForm, 'pages/category/components/ajax/name_editing_form.html'),
                 'thumbnail': (CategoryThumbnailModelForm, 'pages/category/components/ajax/thumbnail_editing_form.html'),
+                'delete_thumbnail': (CategoryThumbnailDeleteModelForm, 'pages/category/components/ajax/category_thumbnail_confirm_delete.html')
             }
         ),
         name='edit_category'

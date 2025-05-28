@@ -52,35 +52,6 @@ class CategoryNameModelForm(BootstrapForm, forms.ModelForm[Category]):
 
 class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
 
-    # thumbnail = forms.ImageField(
-    #     label='',
-    #     required=True, 
-    #     widget=forms.FileInput()
-    # )
-
-
-    # def clean_thumbnail(self) -> UploadedFile:
-    #     uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
-
-    #     if not uploaded_file.name:
-    #         raise ValidationError("Uploaded file must have a name.")
-
-    #     return uploaded_file
-
-
-    # @override
-    # def save(self, commit: bool = True) -> Category:
-    #     uploaded_file = cast(UploadedFile, self.cleaned_data['thumbnail'])
-
-    #     if uploaded_file.name is None:
-    #         raise ValueError("File name is missing; this should have been caught in clean_thumbnail.")
-
-    #     thumbnail_field = cast(ImageFieldFile, self.instance.thumbnail)
-    #     thumbnail_field.save(uploaded_file.name, uploaded_file, save=commit)
-
-    #     return super().save(commit)
-
-
     class Meta:
         model = Category
         fields = ['thumbnail']
@@ -89,4 +60,16 @@ class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
         }
         widgets = {
             'thumbnail': forms.FileInput()
+        }
+
+
+class CategoryThumbnailDeleteModelForm(BootstrapForm, forms.ModelForm[Category]):
+
+    thumbnail = forms.BooleanField(required=True)
+
+    class Meta:
+        model = Category
+        fields = ['thumbnail']
+        labels = {
+            'thumbnail': ''
         }
