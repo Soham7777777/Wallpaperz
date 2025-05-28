@@ -1,5 +1,5 @@
 from typing import Any, override
-from django.http import HttpRequest, HttpResponse, Http404, QueryDict
+from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render
 from django.forms import ModelForm
 from app.models import Wallpaper, Category
@@ -80,7 +80,7 @@ class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, BaseModelForm[AbstractB
         return response
 
 
-class ModelPatchView(View):
+class ModelEditView(View):
     model: type[AbstractBaseModel] | None = None
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
@@ -139,8 +139,8 @@ class ModelPatchView(View):
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
-            form.save()
             if form.has_changed():
+                form.save()
                 messages.success(request, self.success_message)
             context = self.get_context_data(oob_swap_messages=True)
             return render(request, self.patch_template_name, context)

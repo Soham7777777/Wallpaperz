@@ -1,3 +1,0 @@
-- providing thumbnail delete option
-- form should save only if it has changed
- 

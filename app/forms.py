@@ -1,7 +1,8 @@
-from typing import Any, cast
+from typing import Any, cast, override
 from django import forms
 from app.models import Category, Wallpaper
 from project.forms import BootstrapForm
+from django.db.models.fields.files import ImageFieldFile
 
 
 class WallpaperDescriptionModelForm(BootstrapForm, forms.ModelForm[Wallpaper]):
@@ -65,11 +66,20 @@ class CategoryThumbnailModelForm(BootstrapForm, forms.ModelForm[Category]):
 
 class CategoryThumbnailDeleteModelForm(BootstrapForm, forms.ModelForm[Category]):
 
-    thumbnail = forms.BooleanField(required=True)
+    delete_thumbnail = forms.BooleanField(required=True)
+
 
     class Meta:
         model = Category
-        fields = ['thumbnail']
-        labels = {
-            'thumbnail': ''
-        }
+        fields: list[str] = []
+
+
+    @override
+    def save(self, commit: bool = True) -> Category:
+        delete_thumbnail = cast(bool, self.cleaned_data['delete_thumbnail'])
+
+        if delete_thumbnail:
+            thumbnail_field = cast(ImageFieldFile, self.instance.thumbnail)
+            thumbnail_field.delete(save=False)
+        
+        return super().save(commit)

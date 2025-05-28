@@ -6,8 +6,8 @@ category: Category
 {% endcomment %}
 
 
-<form hx-post="{% url 'edit_category' category.slug %}{% querystring %}">
-    <input type="checkbox" style="display: none;" id="delete-thumbnail-checkbox" checked>
+<form hx-post="{% url 'edit_category' category.slug %}{% querystring %}" hx-target="#category-thumbnail" hx-select="#category-thumbnail">
+    <input name="delete_thumbnail" type="checkbox" style="display: none;" id="delete-thumbnail-checkbox" checked>
 
 
     <div class="modal-header">

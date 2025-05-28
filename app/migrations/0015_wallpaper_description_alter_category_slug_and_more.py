@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wallpaper',
             name='image',
-            field=models.ImageField(height_field='height', max_length=256, unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
+            field=models.ImageField(editable=False, height_field='height', max_length=256, unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
         ),
         migrations.AlterField(
             model_name='wallpaper',

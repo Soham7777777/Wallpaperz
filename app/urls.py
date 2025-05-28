@@ -1,8 +1,8 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelPatchView
-from app.forms import WallpaperDescriptionModelForm, WallpaperCategoryModelForm, CategoryNameModelForm, CategoryThumbnailModelForm, CategoryThumbnailDeleteModelForm
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView
+from app import forms
 
 
 urlpatterns = [
@@ -73,14 +73,14 @@ urlpatterns = [
 
     path(
         'wallpapers/<slug:slug>/edit',
-        ModelPatchView.as_view(
+        ModelEditView.as_view(
             model=Wallpaper,
             context_instance_name='wallpaper',
             patch_template_name='pages/wallpaper/page.html',
             success_message='Wallpaper updated sucessfully',
             query_to_form_map={
-                'description': (WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/description_editing_form.html'),
-                'category': (WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/category_editing_form.html')
+                'description': (forms.WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/description_editing_form.html'),
+                'category': (forms.WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/category_editing_form.html')
             }
         ),
         name='edit_wallpaper'
@@ -88,15 +88,15 @@ urlpatterns = [
 
     path(
         'categories/<slug:slug>/edit',
-        ModelPatchView.as_view(
+        ModelEditView.as_view(
             model=Category,
             context_instance_name='category',
             patch_template_name='pages/category/page.html',
             success_message='Category updated sucessfully',
             query_to_form_map={
-                'name': (CategoryNameModelForm, 'pages/category/components/ajax/name_editing_form.html'),
-                'thumbnail': (CategoryThumbnailModelForm, 'pages/category/components/ajax/thumbnail_editing_form.html'),
-                'delete_thumbnail': (CategoryThumbnailDeleteModelForm, 'pages/category/components/ajax/category_thumbnail_confirm_delete.html')
+                'name': (forms.CategoryNameModelForm, 'pages/category/components/ajax/name_editing_form.html'),
+                'thumbnail': (forms.CategoryThumbnailModelForm, 'pages/category/components/ajax/thumbnail_editing_form.html'),
+                'delete_thumbnail': (forms.CategoryThumbnailDeleteModelForm, 'pages/category/components/ajax/category_thumbnail_confirm_delete.html')
             }
         ),
         name='edit_category'

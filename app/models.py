@@ -16,6 +16,7 @@ from django.urls import reverse
 
 class Wallpaper(AbstractBaseModel):
     image = models.ImageField(
+        editable=False,
         unique=True,
         upload_to=UniqueFilePathGenerator(
             PurePath('wallpapers/'),
