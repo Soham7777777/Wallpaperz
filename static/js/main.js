@@ -182,3 +182,27 @@ function loadGrid() {
         }
     });
 }
+
+
+/**
+ * Close modal on successful create category 
+ */
+function closeModalOnSuccess(event) {
+    const serverHTML = event.detail.serverResponse;
+
+    // Parse the server response string into an HTML document
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(serverHTML, "text/html");
+
+    // Check for the presence of the element
+    const categoryForm = doc.querySelector('#category-creation-form');
+
+    if (!categoryForm) {
+        // If the form doesn't exist in the response, close the Bootstrap modal
+        const modalElement = document.getElementById('MainModal');
+        const bootstrapModal = bootstrap.Modal.getInstance(modalElement);
+        if (bootstrapModal) {
+            bootstrapModal.hide();
+        }
+    }
+}

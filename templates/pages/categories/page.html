@@ -7,8 +7,15 @@
 {% block main %}
 <div class="container-fluid px-2 px-md-4 my-4">
 
+    <a href="{% url 'create_category' %}" class="text-success" style="text-decoration: underline;"
+        hx-get="{% url 'create_category' %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+        data-bs-target="#MainModal">
+        <i class="bi bi-plus-square-fill me-2"></i>Add New Category
+    </a>
+
+
     {% if categories %}
-    <div class="row p-0 m-0" hx-boost="true">
+    <div class="row p-0 mt-4" hx-boost="true" id="categories-cards-grid">
         {% for category in categories %}
         {% include 'pages/categories/components/category_card.html' with category=category only %}
         {% endfor %}

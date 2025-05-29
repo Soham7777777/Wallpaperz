@@ -1,0 +1,12 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    category: Category
+{% endcomment %}
+
+
+<div hx-swap-oob="beforeend:#categories-cards-grid">
+    {% include 'pages/categories/components/category_card.html' with category=category only %}
+</div>
+
+{% include 'components/messages.html' with messages=messages oob_swap_messages=True only %}

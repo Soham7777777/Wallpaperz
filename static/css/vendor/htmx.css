@@ -4,11 +4,11 @@
 }
 
 .htmx-request .htmx-indicator {
-    z-index: 2000;
+    z-index: 2010;
     display: block;
 }
 
 .htmx-request.htmx-indicator {
-    z-index: 2000;
+    z-index: 2010;
     display: block;
 }

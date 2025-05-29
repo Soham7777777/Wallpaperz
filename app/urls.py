@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.models import Category, Wallpaper
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView
 from app import forms
 
 
@@ -100,6 +100,12 @@ urlpatterns = [
             }
         ),
         name='edit_category'
+    ),
+
+    path(
+        'category/create',
+        CategoryCreateView.as_view(),
+        name='create_category'
     ),
 
 ]

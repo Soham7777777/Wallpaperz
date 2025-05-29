@@ -8,8 +8,9 @@ from django.views.generic import ListView, TemplateView, DeleteView, View
 from typing import cast
 from django.db import models
 from common.models import AbstractBaseModel
-from django.forms.models import BaseModelForm
 from django.contrib import messages
+from app.forms import CategoryNameModelForm
+from django.template.loader import render_to_string
 
 
 class FilteredWallpaperListView(ListView[Wallpaper]):
@@ -51,7 +52,7 @@ class HomePageView(TemplateView):
         return context
 
 
-class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, BaseModelForm[AbstractBaseModel]]):
+class CustomHTMXDeleteView(DeleteView[AbstractBaseModel, ModelForm[AbstractBaseModel]]):
 
     success_message: str | None = None
 
@@ -147,3 +148,23 @@ class ModelEditView(View):
         
         context = self.get_context_data(form=form)
         return render(request, form_template, context)
+
+
+class CategoryCreateView(View):
+
+    form_class = CategoryNameModelForm
+    template_name = 'pages/categories/components/ajax/category_creation_form.html'
+
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.form_class()
+        return render(request, self.template_name, dict(form=form))
+
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            category = form.save()
+            messages.success(request, 'Category created successfully.')
+            return render(request, 'pages/categories/components/ajax/category_card.html', dict(category=category))
+        return render(request, self.template_name, dict(form=form))
