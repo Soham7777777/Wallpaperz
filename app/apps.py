@@ -6,6 +6,7 @@ from django.db.models.signals import post_delete, pre_save
 class AppConfig(ApplicationConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'app'
+    verbose_name = 'Wallpaperz'
 
 
     @override
