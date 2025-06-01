@@ -116,7 +116,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_FROM_EMAIL = 'sohamjobanputra7@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'gtdr yrxe tvot gysh'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
 
@@ -136,6 +136,10 @@ VERIFIED_GROUP_NAME = 'Verified'
 CATEGORY_EDITOR_GROUP_NAME = 'Category Editor'
 
 WALLPAPER_EDITOR_GROUP_NAME = 'Wallpaper Editor'
+
+VERIFIED_GROUP_PERMISIONS = [
+    'app.verified_user',
+]
 
 CATEGORY_EDITOR_PERMISIONS = [
     'app.delete_category',

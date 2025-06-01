@@ -7,8 +7,12 @@ from django.contrib.auth.decorators import permission_required
 from app import forms
 
 
-wallpaper_editor_permissions = settings.WALLPAPER_EDITOR_PERMISIONS
-category_editor_permissions = settings.CATEGORY_EDITOR_PERMISIONS
+verified_group_permissions: list[str] = settings.VERIFIED_GROUP_PERMISIONS
+wallpaper_editor_permissions: list[str] = settings.WALLPAPER_EDITOR_PERMISIONS
+category_editor_permissions: list[str] = settings.CATEGORY_EDITOR_PERMISIONS
+
+wallpaper_editor_permissions += verified_group_permissions
+category_editor_permissions += verified_group_permissions
 
 
 urlpatterns = [

@@ -2,6 +2,6 @@
 
 {% load filters %}
 
-{% if request.user|is_wallpaper_editor %}
+{% if request.user|is_verified and request.user|is_wallpaper_editor %}
 {% block action %} {% endblock action %}
 {% endif %}

@@ -1,4 +1,5 @@
 from typing import Any, TypeAlias, override
+from django.conf import settings
 from django.http import HttpRequest, HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.forms import ModelForm, ValidationError
@@ -260,7 +261,7 @@ def verify_email(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
             session_token = request.session.get(internal_email_verification_session)
             if default_token_generator.check_token(user, session_token):
                 user = cast(User, user)
-                user.groups.add(Group.objects.get(name='verified'))
+                user.groups.add(Group.objects.get(name=settings.VERIFIED_GROUP_NAME))
                 messages.success(request, 'Email verified successfully.')
 
                 if request.user.is_authenticated:
