@@ -6,9 +6,14 @@ user: User
 
 {% load filters %}
 
-<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+{% url 'edit_profile' user.id as profile_editing_url %}
+
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="user-username" hx-target="this" hx-swap="outerHTML">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Username:</div>
     <div class="ms-md-2 text-start flex-grow-1">{{ user.get_username }}</div>
+    {% comment %}
+    {% include 'components/editing_link.html' with editing_url=profile_editing_url editing_form_name='username' editing_name='username' only %}
+    {% endcomment %}
 </div>
 
 

@@ -32,7 +32,7 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
 
     model = Wallpaper
     template_name = 'components/ajax/wallpapers.html'
-    paginate_by = 9
+    paginate_by = settings.WALLPAPER_PEGINATION_PER_PAGE
 
 
     @override

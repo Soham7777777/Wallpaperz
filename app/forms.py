@@ -1,8 +1,13 @@
+from types import EllipsisType
 from typing import Any, cast, override
 from django import forms
 from app.models import Category, Wallpaper
+from project import settings
 from project.forms import BootstrapForm
 from django.db.models.fields.files import ImageFieldFile
+from project.forms import UserCreationForm
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.forms import UsernameField
 
 
 class WallpaperDescriptionModelForm(BootstrapForm, forms.ModelForm[Wallpaper]):
@@ -83,3 +88,40 @@ class CategoryThumbnailDeleteModelForm(BootstrapForm, forms.ModelForm[Category])
             thumbnail_field.delete(save=False)
         
         return super().save(commit)
+
+
+class UserUsernameModelForm(UserCreationForm, forms.ModelForm[User]):
+    class Meta:
+        model = User
+        fields = ['username']
+        field_classes = {"username": UsernameField}
+        lables = {
+            'username': ''
+        }
+
+
+class UserEmailModelForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        fields = ['email']
+
+
+    @override
+    def save(self, commit: bool = True) -> User:
+        user = super().save(commit)
+        user.groups.remove(Group.objects.get(name=settings.VERIFIED_GROUP_NAME))
+        return user
+
+
+class UserFirstNameModelForm(BootstrapForm, forms.ModelForm[User]):
+
+    class Meta:
+        model = User
+        fields = ['first_name']
+
+
+class UserLastNameModelForm(BootstrapForm, forms.ModelForm[User]):
+
+    class Meta:
+        model = User
+        fields = ['last_name']

@@ -3,8 +3,9 @@ from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
 from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView
 from app.models import Wallpaper, Category
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from app import forms
+from django.contrib.auth.models import User
 
 
 verified_group_permissions: list[str] = settings.VERIFIED_GROUP_PERMISIONS
@@ -134,6 +135,26 @@ urlpatterns = [
             *category_editor_permissions
         ])(CategoryCreateView.as_view()),
         name='create_category'
+    ),
+
+    path(
+        'accounts/<int:slug>/edit',
+        login_required(
+            ModelEditView.as_view(
+                model=User,
+                slug_field='id',
+                context_instance_name='user',
+                patch_template_name='pages/profile/page.html',
+                success_message='Account updated sucessfully',
+                query_to_form_map={
+                    'username': (forms.UserUsernameModelForm, 'pages/profile/components/ajax/username_editing_form.html'),
+                    'email': (forms.UserEmailModelForm, 'pages/profile/components/ajax/email_editing_form.html'),
+                    'first_name': (forms.UserFirstNameModelForm, 'pages/profile/components/ajax/first_name_editing_form.html'),
+                    'last_name': (forms.UserLastNameModelForm, 'pages/profile/components/ajax/last_name_editing_form.html')
+                }
+            )
+        ),
+        name='edit_profile'
     ),
 
 ]

@@ -16,15 +16,16 @@ def connect_permissions_with_groups(
     **kwargs: Any,
 ) -> None:
 
-    if app_config.name != 'app':
-        return
 
     # code taken from create_permissions at django/contrib/auth/management/__init__.py
 
-    Permission = apps.get_model('auth', 'Permission')
-    Group = apps.get_model('auth', 'Group')
-    ContentType = apps.get_model('contenttypes', 'ContentType')
-    Wallpaper = apps.get_model('app', 'Wallpaper')
+    try:
+        Permission = apps.get_model('auth', 'Permission')
+        Group = apps.get_model('auth', 'Group')
+        ContentType = apps.get_model('contenttypes', 'ContentType')
+        Wallpaper = apps.get_model(app_config.label, 'Wallpaper')
+    except LookupError:
+        return
 
     # Ensure that permissions are created for this app. Needed if
     # 'app' is in INSTALLED_APPS before
@@ -42,17 +43,21 @@ def connect_permissions_with_groups(
 
     # for verified group
     verified_group = Group.objects.get(name=settings.VERIFIED_GROUP_NAME)
-    verified_group_applied_permission_codenames = verified_group.permissions.all().values_list('codename', flat=True)
-
     verified_group_permissions_to_apply: list[str] = settings.VERIFIED_GROUP_PERMISIONS
+    content_type = ContentType.objects.get_for_model(Wallpaper)
+
     for permission_codename in verified_group_permissions_to_apply:
         codename = permission_codename.split('.')[-1]
-        if codename not in verified_group_applied_permission_codenames:
+
+        existing_permission = Permission.objects.filter(codename=codename, content_type=content_type).first()
+
+        if existing_permission is None:        
+            name = ' '.join(codename.split('_')).title()
             verified_group.permissions.add(
                 Permission.objects.create(
-                    name=' '.join(codename.split('_')).title(),
+                    name=name,
                     codename=codename,
-                    content_type=ContentType.objects.get_for_model(Wallpaper)
+                    content_type=content_type
                 )
             )
             if verbosity >= 2:

@@ -130,6 +130,12 @@ EMAIL_USE_SSL = False
 
 
 # Custom
+# -------------------------------------------------
+# -------------------------------------------------
+# -------------------------------------------------
+
+
+# Authorization
 
 VERIFIED_GROUP_NAME = 'Verified'
 
@@ -152,3 +158,8 @@ WALLPAPER_EDITOR_PERMISIONS = [
     'app.change_wallpaper',
     'app.add_wallpaper',
 ]
+
+
+# Pagination
+
+WALLPAPER_PEGINATION_PER_PAGE = 9
