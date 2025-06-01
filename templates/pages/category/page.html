@@ -12,26 +12,21 @@
 <div class="container-fluid px-2 px-md-4 my-4">
     <div id="category-name" hx-target="this" hx-swap="outerHTML">
         <h1 class="break-word" id="category-title"> {{ category.name | title }} </h1>
-        {% include 'components/editing_link.html' with editing_url=category_editing_url editing_form_name='name' editing_name='name' only %}
+        {% include 'pages/category/components/actions/edit_name.html' with editing_url=category_editing_url editing_form_name='name' editing_name='name' user=user only %}
     </div>
     <hr style="height: 5px; background-color: red; border: none;">
 
 
     <div id="category-thumbnail" hx-target="this" hx-swap="outerHTML" class="container pt-3 text-center">
         {% include 'pages/category/components/thumbnail.html' with thumbnail=category.thumbnail only %}
-        {% include 'components/editing_link.html' with editing_url=category_editing_url editing_form_name='thumbnail' editing_name='thumbnail' only %}
+        {% include 'pages/category/components/actions/edit_thumbnail.html' with editing_url=category_editing_url editing_form_name='thumbnail' editing_name='thumbnail' user=user only %}
         {% if category.thumbnail %}
-        <a hx-get="{% url 'edit_category' category.slug %}{% querystring form='delete_thumbnail' %}" hx-target="#MainModalContent" hx-swap="innerHTML" data-bs-toggle="modal"
-            data-bs-target="#MainModal" class="small text-danger ms-4" style="cursor: pointer;"><i class="bi bi-dash-square-fill me-2"></i>Remove thumbnail</a>
+        {% include 'pages/category/components/actions/delete_thumbnail.html' with category=category user=user only %}
         {% endif %}
     </div>
 
     <div class="container-fluid px-0 my-5 text-center">
-        <a href="{% url 'delete_category' category.slug %}" class="text-danger" style="text-decoration: underline;"
-            hx-get="{% url 'delete_category' category.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
-            data-bs-target="#MainModal">
-            <i class="bi bi-trash me-2"></i>Delete this category
-        </a>
+        {% include 'pages/category/components/actions/delete_category.html' with category=category user=user only %}
     </div>
 
     <h2>Wallpapers</h2>

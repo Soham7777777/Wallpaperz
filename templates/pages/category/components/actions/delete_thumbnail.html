@@ -1,0 +1,14 @@
+{% extends 'components/category_editor_actions.html/base.html' %}
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    user: User
+    category: Category
+{% endcomment %}
+
+{% block action %}
+<a hx-get="{% url 'edit_category' category.slug %}{% querystring form='delete_thumbnail' %}"
+    hx-target="#MainModalContent" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#MainModal"
+    class="small text-danger ms-4" style="cursor: pointer;"><i class="bi bi-dash-square-fill me-2"></i>Remove
+    thumbnail</a>
+{% endblock action %}

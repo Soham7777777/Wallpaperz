@@ -1,6 +1,7 @@
 from typing import override
 from django.apps import AppConfig as ApplicationConfig
-from django.db.models.signals import post_delete, pre_save
+from app.signals import connect_permissions_with_groups
+from django.db.models.signals import post_delete, pre_save, post_migrate
 
 
 class AppConfig(ApplicationConfig):
@@ -38,3 +39,5 @@ class AppConfig(ApplicationConfig):
             sender=Category,
             dispatch_uid='CATEGORY_DELETE_OLD_FILES_PRE_SAVE'
         )
+
+        post_migrate.connect(connect_permissions_with_groups, dispatch_uid='GROUP_PERMISSION_CONNECTION_POST_MIGRATE')

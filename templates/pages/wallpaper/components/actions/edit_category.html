@@ -1,0 +1,13 @@
+{% extends 'components/wallpaper_editor_actions.html/base.html' %}
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    user: User
+    editing_url: str
+    editing_form_name: str
+    editing_name: str
+{% endcomment %}
+
+{% block action %}
+{% include 'components/editing_link.html' with editing_url=editing_url editing_form_name=editing_form_name editing_name=editing_name only %}
+{% endblock action %}

@@ -13,6 +13,7 @@ Params:
 
 {% url 'home' as home_path %}
 {% url 'categories' as categories_path %}
+{% url 'admin:index' as admin_path %}
 
 
 <nav class="navbar navbar-expand-lg bg-dark py-3 px-2 px-md-4 text-light">
@@ -42,19 +43,23 @@ Params:
 
                 {% if user.is_authenticated %}
                 {% url 'profile' as profile_path %}
-                {% url 'logout' as logout_path %}
                 <li class="nav-item ms-lg-5">
                     <a class="nav-link px-0 {% if request.path_info == profile_path %} active text-white fw-bold {% endif %}"
                         href="{% url 'profile' %}">Profile</a>
                 </li>
                 <li class="nav-item ms-lg-5">
-                    <form action="{{ logout_path }}" method="post" hx-boost="false">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <button type="submit" class="nav-link px-0">Log out</a>
-                    </form>
+                    <a class="nav-link px-0 {% if request.path_info == admin_path %} active text-white fw-bold {% endif %}"
+                        href="{% url 'admin:index' %}" hx-boost="false">Admin</a>
+                </li>
+                <li class="nav-item ms-lg-5" style="cursor: pointer;">
+                    <a class="nav-link px-0" data-bs-toggle="modal" data-bs-target="#LogoutModal">Logout</a>
                 </li>
                 {% else %}
                 {% url 'login' as login_path %}
+                <li class="nav-item ms-lg-5">
+                    <a class="nav-link px-0 {% if request.path_info == admin_path %} active text-white fw-bold {% endif %}"
+                        href="{% url 'admin:index' %}" hx-boost="false">Admin</a>
+                </li>
                 <li class="nav-item ms-lg-5">
                     <a class="nav-link px-0 {% if request.path_info == login_path %} active text-white fw-bold {% endif %}"
                         href="{% url 'login' %}">Log in</a>

@@ -7,7 +7,7 @@
 {% block main %}
 <div class="container-fluid px-2 px-md-4 my-4">
 
-    {% include 'pages/categories/components/category_card.html' only %}
+    {% include 'pages/categories/components/actions/create_category.html' with user=user only %}
 
 
     {% if categories %}

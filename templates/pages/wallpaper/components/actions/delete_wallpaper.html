@@ -1,0 +1,16 @@
+{% extends 'components/wallpaper_editor_actions.html/base.html' %}
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+{% comment %}
+Params:
+    user: User
+    wallpaper: Wallpaper
+{% endcomment %}
+
+{% block action %}
+<a href="{% url 'delete_wallpaper' wallpaper.slug %}" class="text-danger" style="text-decoration: underline;"
+    hx-get="{% url 'delete_wallpaper' wallpaper.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+    data-bs-target="#MainModal">
+    <i class="bi bi-trash me-2"></i>Delete
+    this wallpaper
+</a>
+{% endblock action %}

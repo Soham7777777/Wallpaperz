@@ -1,7 +1,8 @@
 {% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
 {% comment %}
 Params:
-wallpaper: Wallpaper
+    wallpaper: Wallpaper
+    user: User
 {% endcomment %}
 
 
@@ -17,7 +18,7 @@ wallpaper: Wallpaper
             <span class="text-secondary">No description provided.</span>
             {% endif %}
         </p>
-        {% include 'components/editing_link.html' with editing_url=wallpaper_editing_url editing_form_name='description' editing_name='description' only %}
+        {% include 'pages/wallpaper/components/actions/edit_description.html' with editing_url=wallpaper_editing_url editing_form_name='description' editing_name='description' user=user only %}
     </div>
 </div>
 
@@ -45,15 +46,10 @@ wallpaper: Wallpaper
             <a hx-boost="true" hx-target="body" class="break-word" style="text-decoration: underline; color: blue;"
                 href="{% url 'category' slug=wallpaper.category.slug %}">{{ wallpaper.category.name|title }}</a>
         </div>
-        {% include 'components/editing_link.html' with editing_url=wallpaper_editing_url editing_form_name='category' editing_name='category' only %}
+        {% include 'pages/wallpaper/components/actions/edit_category.html' with editing_url=wallpaper_editing_url editing_form_name='category' editing_name='category' user=user only %}
     </div>
 </div>
 
 <div class="ms-md-2 mt-4 flex-grow-1">
-    <a href="{% url 'delete_wallpaper' wallpaper.slug %}" class="text-danger" style="text-decoration: underline;"
-        hx-get="{% url 'delete_wallpaper' wallpaper.slug %}" hx-target="#MainModalContent" data-bs-toggle="modal"
-        data-bs-target="#MainModal">
-        <i class="bi bi-trash me-2"></i>Delete
-        this wallpaper
-    </a>
+    {% include 'pages/wallpaper/components/actions/delete_wallpaper.html' with wallpaper=wallpaper user=user only %}
 </div>

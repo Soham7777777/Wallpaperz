@@ -75,6 +75,33 @@
         </div>
     </div>
 
+    {% if user.is_authenticated %}
+    <div class="modal fade break-word" id="LogoutModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="LogoutModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div id="LogoutModalContent" class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Logout Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        <strong>Are you sure you want to logout?</strong>
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="{% url 'logout' %}" method="post" hx-boost="false">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
 </body>
 
