@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Profile
+{% endblock title %}
+
+
+{% block main %}
+<div class="container-fluid my-4">
+    <div class="row justify-content-start">
+        <div class="col-auto m-0 px-3 mb-4">
+            {% include 'pages/profile/components/data.html' with user=user only %}
+        </div>
+        <span class="small">Want to change your password? <a href="{% url 'password_change' %}" hx-boost="true">click here</a></span>
+    </div>
+</div>
+{% endblock main %}

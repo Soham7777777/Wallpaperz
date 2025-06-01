@@ -1,0 +1,9 @@
+{% extend 'components/category_editor_actions.html/base.html' %}
+{% comment %}COMPONENT TYPE: INCLUDE{% endcomment %}
+
+
+<a href="{% url 'create_category' %}" class="text-success" style="text-decoration: underline;"
+    hx-get="{% url 'create_category' %}" hx-target="#MainModalContent" data-bs-toggle="modal"
+    data-bs-target="#MainModal">
+    <i class="bi bi-plus-square-fill me-2"></i>Add New Category
+</a>

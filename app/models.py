@@ -9,7 +9,6 @@ from common.constants import MB
 from common import regexes
 from django.core import validators
 from django_stubs_ext.db.models.manager import RelatedManager
-from django.utils.text import slugify
 from django.core import validators
 from django.urls import reverse
 

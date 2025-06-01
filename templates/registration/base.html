@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div class="container" hx-boost="true">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+      <div class="card shadow-sm p-4 my-5">
+        {% if form %}
+        <h3 class="mb-3">{% block form_title %}{% endblock form_title %}</h3>
+        <form action="{{ request.path_info }}" method="post">
+          {% csrf_token %}
+          {% block form %}{% endblock form %}
+          <button type="submit" class="btn btn-primary">{% block button_text %}Submit{% endblock button_text %}</button>
+          {% block extra_form_content %} {% endblock extra_form_content %}
+        </form>
+        {% else %}
+        <div class="text-center">
+          <h3> This page is expired! </h3>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}

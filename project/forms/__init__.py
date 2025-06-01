@@ -1,5 +1,10 @@
-from project.forms.forms import BootstrapForm
+from project.forms.forms import BootstrapForm, AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm, UserCreationForm
 
 __all__ = [
-    'BootstrapForm'
+    'BootstrapForm',
+    'AuthenticationForm',
+    'PasswordResetForm',
+    'SetPasswordForm',
+    'PasswordChangeForm',
+    'UserCreationForm',
 ]

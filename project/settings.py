@@ -105,3 +105,46 @@ STATIC_URL = 'static/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 MEDIA_URL = 'media/'
+
+
+# Auth
+
+LOGOUT_REDIRECT_URL = '/'
+
+
+# Email
+
+DEFAULT_FROM_EMAIL = 'sohamjobanputra7@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'gtdr yrxe tvot gysh'
+
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+EMAIL_USE_SSL = False
+
+
+# Custom
+
+VERIFIED_GROUP_NAME = 'Verified'
+
+CATEGORY_EDITOR_GROUP_NAME = 'Category Editor'
+
+WALLPAPER_EDITOR_GROUP_NAME = 'Wallpaper Editor'
+
+CATEGORY_EDITOR_PERMISIONS = [
+    'app.delete_category',
+    'app.change_category',
+    'app.add_category',
+]
+
+WALLPAPER_EDITOR_PERMISIONS = [
+    'app.delete_wallpaper',
+    'app.change_wallpaper',
+    'app.add_wallpaper',
+]

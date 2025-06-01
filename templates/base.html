@@ -45,7 +45,7 @@
 
     {% include 'components/htmx_indicator.html' only %}
 
-    {% include 'components/navbar.html' with request=request only %}
+    {% include 'components/navbar.html' with request=request user=user csrf_token=csrf_token only %}
 
 
     <main class="flex-grow-1">

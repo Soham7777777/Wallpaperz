@@ -1,7 +1,8 @@
-from typing import Any, override
-from django.http import HttpRequest, HttpResponse, Http404
+from typing import Any, TypeAlias, override
+from django.http import HttpRequest, HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
+from django.urls import reverse
 from app.models import Wallpaper, Category
 from django.db.models.query import QuerySet
 from django.views.generic import ListView, TemplateView, DeleteView, View
@@ -10,7 +11,20 @@ from django.db import models
 from common.models import AbstractBaseModel
 from django.contrib import messages
 from app.forms import CategoryNameModelForm
-from django.template.loader import render_to_string
+from project.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import User, Group
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.cache import never_cache
+
+
+_User: TypeAlias = AbstractBaseUser
+UserModel = get_user_model()
+
 
 
 class FilteredWallpaperListView(ListView[Wallpaper]):
@@ -168,3 +182,101 @@ class CategoryCreateView(View):
             messages.success(request, 'Category created successfully.')
             return render(request, 'pages/categories/components/ajax/category_card.html', dict(category=category))
         return render(request, self.template_name, dict(form=form))
+
+
+class UserCreationView(View):
+
+    form_class = UserCreationForm
+    template_name = 'registration/create_user.html'
+
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.form_class()
+        return render(request, self.template_name, dict(form=form))
+    
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Account created successfully.')
+            response = HttpResponse()
+            response.headers['HX-Location'] = reverse('login')
+            response.status_code = 204
+            return response
+        return render(request, self.template_name, dict(form=form))
+
+
+def email_verification(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        opts = {
+            'use_https': request.is_secure(),
+            'token_generator': default_token_generator,
+            'from_email': None,
+            'email_template_name': 'registration/email_verification_email.html',
+            'subject_template_name': 'registration/email_verification_subject.txt',
+            'request': request,
+            'html_email_template_name': None,
+            'extra_email_context': None,
+        }
+        form = PasswordResetForm(dict(email=request.user.email))
+        if form.is_valid():
+            form.save(**opts)
+        else:
+            raise Http404()
+        return render(request, 'registration/email_verification_done.html')
+    raise Http404()
+
+
+@sensitive_post_parameters()
+@never_cache
+def verify_email(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
+    # code taken from PasswordResetConfirmView
+
+    internal_email_verification_session = '_email_verification_token'
+    email_verification_url = 'verify-email'
+
+    def get_user(uidb64: str) -> _User | None:
+        try:
+            # urlsafe_base64_decode() decodes to bytestring
+            uid = urlsafe_base64_decode(uidb64).decode()
+            pk = UserModel._meta.pk.to_python(uid)
+            user = UserModel._default_manager.get(pk=pk)
+        except (
+            TypeError,
+            ValueError,
+            OverflowError,
+            UserModel.DoesNotExist,
+            ValidationError,
+        ):
+            user = None
+        return user
+
+    user = get_user(uidb64)
+
+    if user is not None:
+        token = token
+        if token == email_verification_url:
+            session_token = request.session.get(internal_email_verification_session)
+            if default_token_generator.check_token(user, session_token):
+                user = cast(User, user)
+                user.groups.add(Group.objects.get(name='verified'))
+                messages.success(request, 'Email verified successfully.')
+
+                if request.user.is_authenticated:
+                    return HttpResponseRedirect(reverse('profile'))
+                else:
+                    return HttpResponseRedirect(reverse('login'))
+        else:
+            if default_token_generator.check_token(user, token):
+                # Store the token in the session and redirect to the
+                # email verification URL without the token. That
+                # avoids the possibility of leaking the token in the
+                # HTTP Referer header.
+                request.session[internal_email_verification_session] = token
+                redirect_url = request.path.replace(
+                    token, email_verification_url
+                )
+                return HttpResponseRedirect(redirect_url)
+            
+    raise Http404()

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
-from app.models import Wallpaper, Category
+from django.contrib.auth.models import Group, User
 
 
 class WallpaperzAdminSite(admin.AdminSite):
@@ -10,5 +9,3 @@ class WallpaperzAdminSite(admin.AdminSite):
 admin_site = WallpaperzAdminSite(name='wallpaperzadmin')
 admin_site.register(User)
 admin_site.register(Group)
-admin_site.register(Wallpaper)
-admin_site.register(Category)

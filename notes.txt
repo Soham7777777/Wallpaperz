@@ -1,1 +1,3 @@
 - created at and modified at fields
+- creating decorator is_verified_and_has_permissions
+- updating conditions by adding is_verified as well at base actions template
