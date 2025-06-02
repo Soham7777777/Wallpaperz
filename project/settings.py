@@ -101,7 +101,7 @@ STORAGES = {
     'private': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
         'OPTIONS': {
-            'location': BASE_DIR / 'private',
+            'location': 'private',
         }
     }
 }

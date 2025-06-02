@@ -6,6 +6,7 @@ import common.validators
 import django.core.files.storage
 import pathlib
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -18,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wallpaper',
             name='image',
-            field=models.ImageField(editable=False, height_field='height', max_length=256, storage=django.core.files.storage.FileSystemStorage(location=pathlib.PurePosixPath('/home/soham/Projects/Wallpaperz/private')), unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
+            field=models.ImageField(editable=False, height_field='height', max_length=256, storage=django.core.files.storage.FileSystemStorage(location=pathlib.PurePosixPath(settings.BASE_DIR / 'private')), unique=True, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers'), 'image'), validators=[common.validators.MaxFileSizeValidator(7340032), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['JPEG'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)], width_field='width'),
         ),
     ]
