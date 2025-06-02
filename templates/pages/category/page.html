@@ -29,20 +29,28 @@
         {% include 'pages/category/components/actions/delete_category.html' with category=category user=user only %}
     </div>
 
-    <h2>Wallpapers</h2>
-    <hr>
 </div>
 
-{% if category.wallpapers.exists %}
+<div id="category-wallpapers" hx-target="this" hx-swap="outerHTML">
+    <div class="container-fluid px-2 px-md-4 my-4">
+        <h2>Wallpapers</h2>
+        {% include 'pages/category/components/actions/add_wallpapers.html' with category=category user=user only %}
+        <hr>
+    </div>
 
-{% url 'wallpapers' as base_url %}
+    <div hx-disinherit="*" hx-boost="true" hx-indicator="#ajaxOverlay">
+    {% if category.wallpapers.exists %}
 
-{% querystring category=category.slug page=1 as query_str %}
-{% include 'components/grid.html' with wallpapers_url=base_url|add:query_str only %}
+    {% url 'wallpapers' as base_url %}
 
-{% else %}
+    {% querystring category=category.slug page=1 as query_str %}
+    {% include 'components/grid.html' with wallpapers_url=base_url|add:query_str only %}
 
-{% include 'components/empty_data.html' only %}
+    {% else %}
 
-{% endif %}
+    {% include 'components/empty_data.html' only %}
+
+    {% endif %}
+    </div>
+</div>
 {% endblock main %}

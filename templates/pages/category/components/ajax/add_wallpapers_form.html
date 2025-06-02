@@ -1,0 +1,16 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    form: CategoryNameModelForm
+    category: Category
+{% endcomment %}
+
+
+{% url 'category' category.slug as editing_data_url %}
+
+
+<div id="category-wallpapers" class="container-fluid px-2 px-md-4 my-4">
+    <div class="col-4">
+    {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='category-wallpapers' editing_data_url=editing_data_url is_multipart=True only %}
+    </div>
+</div>

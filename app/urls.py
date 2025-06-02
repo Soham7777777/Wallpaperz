@@ -102,7 +102,7 @@ urlpatterns = [
                 success_message='Wallpaper updated sucessfully',
                 query_to_form_map={
                     'description': (forms.WallpaperDescriptionModelForm, 'pages/wallpaper/components/ajax/description_editing_form.html'),
-                    'category': (forms.WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/category_editing_form.html')
+                    'category': (forms.WallpaperCategoryModelForm, 'pages/wallpaper/components/ajax/category_editing_form.html'),
                 }
             )
         ),
@@ -122,7 +122,8 @@ urlpatterns = [
                 query_to_form_map={
                     'name': (forms.CategoryNameModelForm, 'pages/category/components/ajax/name_editing_form.html'),
                     'thumbnail': (forms.CategoryThumbnailModelForm, 'pages/category/components/ajax/thumbnail_editing_form.html'),
-                    'delete_thumbnail': (forms.CategoryThumbnailDeleteModelForm, 'pages/category/components/ajax/category_thumbnail_confirm_delete.html')
+                    'delete_thumbnail': (forms.CategoryThumbnailDeleteModelForm, 'pages/category/components/ajax/category_thumbnail_confirm_delete.html'),
+                    'wallpapers': (forms.WallpapersUploadModelForm, 'pages/category/components/ajax/add_wallpapers_form.html'),
                 }
             )
         ),
