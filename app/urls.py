@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView, FilteredWallpaperDetailView
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView, FilteredWallpaperDetailView, download_wallpaper
 from app.models import Wallpaper, Category
 from django.contrib.auth.decorators import permission_required, login_required
 from app import forms
@@ -154,4 +154,13 @@ urlpatterns = [
         name='edit_profile'
     ),
 
+    path(
+        'download/wallpaper/<slug:slug>',
+        permission_required([
+            *verified_group_permissions
+        ])(
+            download_wallpaper
+        ),
+        name='download_wallpaper'
+    ),
 ]

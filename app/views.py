@@ -1,7 +1,8 @@
+import os
 from typing import Any, TypeAlias, override
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import FileResponse, HttpRequest, HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.forms import ModelForm, ValidationError
 from django.urls import reverse
 from app.models import Wallpaper, Category
@@ -294,3 +295,10 @@ class FilteredWallpaperDetailView(DetailView[Wallpaper]):
     @override
     def get_queryset(self) -> QuerySet[Wallpaper, Wallpaper]:
         return super().get_queryset().exclude(compressed='')
+
+
+def download_wallpaper(request: HttpRequest, slug: str) -> FileResponse:
+    wallpaper = get_object_or_404(Wallpaper, slug=slug)
+    filename = f"{wallpaper.category.name}{os.path.splitext(wallpaper.image.name)[1]}"
+    response = FileResponse(wallpaper.image.open('rb'), as_attachment=True, filename=filename)
+    return response
