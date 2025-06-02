@@ -1,0 +1,14 @@
+{% comment %}COMPONENT TYPE: AJAX{% endcomment %}
+{% comment %}
+Params:
+    form: UserUsernameModelForm
+    user: User
+{% endcomment %}
+
+
+{% url 'profile' as editing_data_url %}
+
+
+<div id="profile-first-name" class="my-3">
+    {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='profile-first-name' editing_data_url=editing_data_url only %}
+</div>

@@ -8,32 +8,32 @@ user: User
 
 {% url 'edit_profile' user.id as profile_editing_url %}
 
-<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="user-username" hx-target="this" hx-swap="outerHTML">
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="profile-username" hx-target="this" hx-swap="outerHTML">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Username:</div>
-    <div class="ms-md-2 text-start flex-grow-1">{{ user.get_username }}</div>
-    {% comment %}
+    <div class="ms-md-2 text-start flex-grow-1 me-2">{{ user.get_username }}</div>
     {% include 'components/editing_link.html' with editing_url=profile_editing_url editing_form_name='username' editing_name='username' only %}
-    {% endcomment %}
 </div>
 
 
-<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="profile-first-name" hx-target="this" hx-swap="outerHTML">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">First name:</div>
-    <div class="ms-md-2 text-start flex-grow-1">{% if user.first_name %}{{ user.first_name }}{% else %} <span
+    <div class="ms-md-2 text-start flex-grow-1 me-2">{% if user.first_name %}{{ user.first_name }}{% else %} <span
             class="text-secondary">No first name provided</span>{% endif %}</div>
+    {% include 'components/editing_link.html' with editing_url=profile_editing_url editing_form_name='first_name' editing_name='firstname' only %}
 </div>
 
 
-<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="profile-last-name" hx-target="this" hx-swap="outerHTML">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Last name:</div>
-    <div class="ms-md-2 text-start flex-grow-1">{% if user.last_name %}{{ user.last_name }}{% else %} <span
+    <div class="ms-md-2 text-start flex-grow-1 me-2">{% if user.last_name %}{{ user.last_name }}{% else %} <span
             class="text-secondary">No last name provided</span>{% endif %}</div>
+    {% include 'components/editing_link.html' with editing_url=profile_editing_url editing_form_name='last_name' editing_name='lastname' only %}
 </div>
 
 {% with user|is_verified as is_verified_user %}
-<div class="d-flex flex-column flex-md-row mb-3 mb-md-2">
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-2" id="profile-email" hx-target="this" hx-swap="outerHTML">
     <div class="me-md-2 text-md-end fw-bold" style="width: 100px;">Email:</div>
-    <div class="ms-md-2 text-start flex-grow-1">
+    <div class="ms-md-2 text-start flex-grow-1 me-2">
         {% if user.email %}
             {{ user.email }}
             {% if is_verified_user %}
@@ -45,6 +45,7 @@ user: User
         <span class="text-secondary">No email provided</span>
         {% endif %}
     </div>
+    {% include 'components/editing_link.html' with editing_url=profile_editing_url editing_form_name='email' editing_name='email' only %}
 </div>
 {% endwith %}
 

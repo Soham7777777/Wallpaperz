@@ -9,6 +9,6 @@ Params:
 {% url 'profile' as editing_data_url %}
 
 
-<div id="user-username-component">
-    {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='user-username-component' editing_data_url=editing_data_url only %}
+<div id="profile-username" class="mb-3">
+    {% include 'components/editing_form.html' with form=form editing_url=request.path_info editing_element_id='profile-username' editing_data_url=editing_data_url only %}
 </div>

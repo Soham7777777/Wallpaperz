@@ -1,4 +1,4 @@
-from project.forms.forms import BootstrapForm, AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm, UserCreationForm
+from project.forms.forms import BootstrapForm, AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm, UserCreationForm, UniqueEmailField
 
 __all__ = [
     'BootstrapForm',
@@ -7,4 +7,5 @@ __all__ = [
     'SetPasswordForm',
     'PasswordChangeForm',
     'UserCreationForm',
+    'UniqueEmailField',
 ]

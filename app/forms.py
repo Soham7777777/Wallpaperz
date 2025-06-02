@@ -1,11 +1,9 @@
-from types import EllipsisType
 from typing import Any, cast, override
 from django import forms
 from app.models import Category, Wallpaper
 from project import settings
-from project.forms import BootstrapForm
+from project.forms import BootstrapForm, UniqueEmailField
 from django.db.models.fields.files import ImageFieldFile
-from project.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UsernameField
 
@@ -90,19 +88,21 @@ class CategoryThumbnailDeleteModelForm(BootstrapForm, forms.ModelForm[Category])
         return super().save(commit)
 
 
-class UserUsernameModelForm(UserCreationForm, forms.ModelForm[User]):
+class UserUsernameModelForm(BootstrapForm, forms.ModelForm[User]):
+
     class Meta:
         model = User
         fields = ['username']
-        field_classes = {"username": UsernameField}
-        lables = {
-            'username': ''
+        field_classes = {
+            'username': UsernameField
         }
 
 
-class UserEmailModelForm(UserCreationForm):
+class UserEmailModelForm(BootstrapForm, forms.ModelForm[User]):
+    email = UniqueEmailField()
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
+        model = User
         fields = ['email']
 
 

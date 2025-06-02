@@ -49,17 +49,21 @@ class PasswordChangeForm(BootstrapForm, auth_forms.PasswordChangeForm):
     pass
 
 
+def validate_unique_email(value: str) -> None:
+    if User.objects.filter(email=value).exists():
+        raise ValidationError('A user with that email already exists.', code='duplicate_email')
+
+
+def UniqueEmailField(**kwargs: Any) -> forms.EmailField:
+    return forms.EmailField(
+        required=True,
+        help_text='Email must be unique across all users.',
+        validators=[validate_unique_email],
+        **kwargs
+    )
+
 class UserCreationForm(BootstrapForm, auth_forms.UserCreationForm[User]):
-    email = forms.EmailField(required=True, help_text='Email must be unique across all users.')
+    email = UniqueEmailField()
 
-
-    def clean_email(self) -> str:
-        email = cast(str, self.cleaned_data['email'])
-        existing_user = User.objects.filter(email=email).first()
-        if existing_user is not None:
-            raise ValidationError('A user with that email already exists.', code='duplicate_email')
-        return email
-
-
-    class Meta(auth_forms.UserCreationForm.Meta): # type: ignore[name-defined, misc]
-        fields = ['username', 'email']
+    class Meta(auth_forms.UserCreationForm.Meta):  # type: ignore[name-defined, misc]
+        fields = ['username', 'email', 'password1', 'password2']
