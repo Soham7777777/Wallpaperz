@@ -11,8 +11,7 @@ from django.core import validators
 from django_stubs_ext.db.models.manager import RelatedManager
 from django.core import validators
 from django.urls import reverse
-from django.core.files.storage import FileSystemStorage
-from project import settings
+from django.core.files.storage import storages
 
 
 class Wallpaper(AbstractBaseModel):
@@ -34,7 +33,7 @@ class Wallpaper(AbstractBaseModel):
         max_length=256
     )
     image = models.ImageField(
-        storage = FileSystemStorage(settings.BASE_DIR / 'private_media'),
+        storage = storages['private'],
         editable=False,
         unique=True,
         upload_to=UniqueFilePathGenerator(
