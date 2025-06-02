@@ -6,7 +6,7 @@ from django.forms import ModelForm, ValidationError
 from django.urls import reverse
 from app.models import Wallpaper, Category
 from django.db.models.query import QuerySet
-from django.views.generic import ListView, TemplateView, DeleteView, View
+from django.views.generic import ListView, TemplateView, DeleteView, View, DetailView
 from typing import cast
 from django.db import models
 from common.models import AbstractBaseModel
@@ -38,6 +38,8 @@ class FilteredWallpaperListView(ListView[Wallpaper]):
     @override
     def get_queryset(self) -> QuerySet[Wallpaper, Wallpaper]:
         queryset: QuerySet[Wallpaper, Wallpaper] = super().get_queryset()
+
+        queryset = queryset.exclude(compressed='')
 
         category_name = self.request.GET.get('category')
         if category_name:
@@ -281,3 +283,14 @@ def verify_email(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
                 return HttpResponseRedirect(redirect_url)
             
     raise Http404()
+
+
+class FilteredWallpaperDetailView(DetailView[Wallpaper]):
+    model = Wallpaper
+    template_name = 'pages/wallpaper/page.html'
+    context_object_name = 'wallpaper'
+
+
+    @override
+    def get_queryset(self) -> QuerySet[Wallpaper, Wallpaper]:
+        return super().get_queryset().exclude(compressed='')

@@ -13,7 +13,7 @@ Params:
 {% for wallpaper in page_obj.object_list %}
 <a href="{% url 'wallpaper' wallpaper.slug %}">
     <div class="grid-item loading-item">
-        <img class="img-fluid" src="{{ wallpaper.image.url }}" alt="wallpaper">
+        <img class="img-fluid" src="{{ wallpaper.compressed.url }}" alt="wallpaper">
     </div>
 </a>
 {% endfor %}

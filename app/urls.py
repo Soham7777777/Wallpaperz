@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import path, reverse_lazy
 from django.views.generic import ListView, DetailView
-from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView
+from app.views import FilteredWallpaperListView, HomePageView, CustomHTMXDeleteView, ModelEditView, CategoryCreateView, FilteredWallpaperDetailView
 from app.models import Wallpaper, Category
 from django.contrib.auth.decorators import permission_required, login_required
 from app import forms
@@ -52,11 +52,7 @@ urlpatterns = [
 
     path(
         'wallpapers/<slug:slug>',
-        DetailView.as_view(
-            model=Wallpaper,
-            template_name='pages/wallpaper/page.html',
-            context_object_name='wallpaper',
-        ),
+        FilteredWallpaperDetailView.as_view(),
         name='wallpaper'
     ),
 
