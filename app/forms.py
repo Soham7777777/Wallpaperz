@@ -192,7 +192,8 @@ class WallpapersUploadModelForm(BootstrapForm, forms.ModelForm[Category]):
         if self.is_valid():
             for uploaded_wallpaper in uploaded_wallpapers:
                 uploaded_wallpaper.save()
-                compressed_wallpaper = generate_webp_from_jpeg(uploaded_wallpaper.image)
+                compressed_field = cast(ImageFieldFile, uploaded_wallpaper.compressed)
+                compressed_field.save('any.webp', generate_webp_from_jpeg(uploaded_wallpaper.image))
 
         return instance
 
