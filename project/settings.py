@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 import django
 from dotenv import load_dotenv
+import django_recaptcha
 
 
 load_dotenv()
@@ -27,14 +28,15 @@ DEBUG = True
 ALLOWED_HOSTS: list[str] = []
 
 INSTALLED_APPS = [
+    'app',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin.apps.SimpleAdminConfig',
+    'django_recaptcha',
     'common',
-    'app',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,7 @@ TEMPLATES = [
             django.__path__[0] + '/forms/templates',
             django.__path__[0] + '/contrib/admin/templates',
             django.__path__[0] + '/contrib/auth/templates',
+            django_recaptcha.__path__[0] + '/templates',
         ],
         'OPTIONS': {
             'context_processors': [
@@ -127,6 +130,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_USE_SSL = False
+
+
+# recaptcha
+
+RECAPTCHA_PUBLIC_KEY = '6LecM1MrAAAAANS6_N67UVDIk_2GpxsEuqHHf8n4'
+
+RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
+
+RECAPTCHA_REQUIRED_SCORE = 0.85
 
 
 # Custom

@@ -4,6 +4,8 @@ from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm as SetPasswordAuthForm
 from django.forms import ValidationError
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
 class BootstrapForm(forms.Form):
@@ -64,6 +66,7 @@ def UniqueEmailField(**kwargs: Any) -> forms.EmailField:
 
 class UserCreationForm(BootstrapForm, auth_forms.UserCreationForm[User]):
     email = UniqueEmailField()
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     class Meta(auth_forms.UserCreationForm.Meta):  # type: ignore[name-defined, misc]
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'captcha']
