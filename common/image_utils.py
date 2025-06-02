@@ -87,4 +87,5 @@ def generate_webp_from_jpeg(image_file: ImageFile) -> ImageFile:
             alpha_quality=0,
             method=6,
         )
+    in_memory_file.seek(0)
     return ImageFile(in_memory_file)

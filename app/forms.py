@@ -9,7 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UsernameField
 from django.core.files.uploadedfile import UploadedFile
 from django.core.files.images import ImageFile
-from django.core import validators
+from common.image_utils import generate_webp_from_jpeg
 
 
 class WallpaperDescriptionModelForm(BootstrapForm, forms.ModelForm[Wallpaper]):
@@ -161,7 +161,7 @@ class WallpapersUploadModelForm(BootstrapForm, forms.ModelForm[Category]):
 
     def clean_wallpapers(self) -> list[Wallpaper]:
         uploaded_wallpapers = cast(list[UploadedFile], self.cleaned_data['wallpapers'])
-        if len(uploaded_wallpapers) > 3:
+        if len(uploaded_wallpapers) > settings.MAX_WALLPAPERS_UPLOAD:
             raise ValidationError('You can only upload up to 3 wallpapers at a time.')
 
         wallpapers = []
@@ -192,6 +192,7 @@ class WallpapersUploadModelForm(BootstrapForm, forms.ModelForm[Category]):
         if self.is_valid():
             for uploaded_wallpaper in uploaded_wallpapers:
                 uploaded_wallpaper.save()
+                compressed_wallpaper = generate_webp_from_jpeg(uploaded_wallpaper.image)
 
         return instance
 

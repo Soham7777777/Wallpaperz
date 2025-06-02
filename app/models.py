@@ -14,6 +14,23 @@ from django.urls import reverse
 
 
 class Wallpaper(AbstractBaseModel):
+    compressed = models.ImageField(
+        blank=True,
+        editable=False,
+        upload_to=UniqueFilePathGenerator(
+            PurePath('wallpapers/compressed'),
+            'image'
+        ),
+        validators=[
+            MaxFileSizeValidator(1 * MB),
+            ImageFormatAndFileExtensionsValidator((ImageFormat.WEBP, )),
+            ImageDimensionValidator(
+                min_width=1024,
+                min_height=1024,
+            )
+        ],
+        max_length=256
+    )
     image = models.ImageField(
         editable=False,
         unique=True,
