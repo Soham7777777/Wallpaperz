@@ -2,6 +2,5 @@
 - Multiple select in filters
 - searchbox
 - wallpaper tags
-- Fixing migration 19 and 20
 - Proper stucturing of class based views
 - Proper structuring of forms
