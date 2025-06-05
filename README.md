@@ -50,8 +50,9 @@ Clone the repository and go to directory:
 ```
 git clone https://github.com/Soham7777777/Wallpaperz.git
 cd Wallpaperz
----
 ```
+
+---
 
 ## ✅ 1. (Optional but Recommended) Create a Virtual Environment
 
