@@ -46,6 +46,10 @@ I am working on capturing some awesome screenshots of the app in action. Stay tu
 
 Follow this guide to set up and run this Django project locally.
 
+Clone the repository and go to directory:
+```
+git clone https://github.com/Soham7777777/Wallpaperz.git
+cd Wallpaperz
 ---
 
 ## ✅ 1. (Optional but Recommended) Create a Virtual Environment

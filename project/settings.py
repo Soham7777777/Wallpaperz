@@ -78,6 +78,8 @@ FORM_RENDERER = 'project.forms.renderers.BootstrapFormRendered'
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
+
 
 # Database
 
@@ -135,9 +137,11 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Email
 
+if DEBUG: EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 DEFAULT_FROM_EMAIL = 'sohamjobanputra7@gmail.com'
 
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+if not DEBUG: EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
 
@@ -152,9 +156,9 @@ EMAIL_USE_SSL = False
 
 # recaptcha
 
-RECAPTCHA_PUBLIC_KEY = '6LecM1MrAAAAANS6_N67UVDIk_2GpxsEuqHHf8n4'
+if not DEBUG: RECAPTCHA_PUBLIC_KEY = '6LecM1MrAAAAANS6_N67UVDIk_2GpxsEuqHHf8n4'
 
-RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
+if not DEBUG: RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
 
 RECAPTCHA_REQUIRED_SCORE = 0.85
 

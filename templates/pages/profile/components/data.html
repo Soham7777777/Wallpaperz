@@ -39,7 +39,7 @@ user: User
             {% if is_verified_user %}
             <span class="badge text-bg-success">Verified</span>
             {% else %}
-            <span class="badge text-bg-danger mx-2">Unverified</span> <span><a href="{% url 'email_verification' %}" hx-boost="true">verify</a></span>
+            <span class="badge text-bg-danger mx-2">Unverified</span> <span hx-disinherit="hx-target"><a href="{% url 'email_verification' %}" hx-boost="true" >verify</a></span>
             {% endif %}
         {% else %}
         <span class="text-secondary">No email provided</span>
