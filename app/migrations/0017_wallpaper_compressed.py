@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='wallpaper',
             name='compressed',
-            field=models.ImageField(blank=True, editable=False, max_length=256, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('wallpapers/compressed'), 'image'), validators=[common.validators.MaxFileSizeValidator(1048576), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['WEBP'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)]),
+            field=models.ImageField(blank=True, editable=False, max_length=256, upload_to=common.unique_file_path_generators.UniqueFilePathGenerator(pathlib.PurePosixPath('compressed'), 'image'), validators=[common.validators.MaxFileSizeValidator(1048576), common.validators.ImageFormatAndFileExtensionsValidator((common.image_utils.ImageFormat['WEBP'],)), common.validators.ImageDimensionValidator(min_height=1024, min_width=1024)]),
         ),
     ]

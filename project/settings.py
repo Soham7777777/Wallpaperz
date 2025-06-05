@@ -101,7 +101,7 @@ STORAGES = {
     'private': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
         'OPTIONS': {
-            'location': 'private',
+            'location': BASE_DIR / 'media/private',
         }
     }
 }
@@ -123,7 +123,7 @@ STATIC_URL = 'static/'
 
 # Uploaded files
 
-MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_ROOT = BASE_DIR / 'media/public'
 
 MEDIA_URL = 'media/'
 
@@ -192,7 +192,7 @@ WALLPAPER_EDITOR_PERMISIONS = [
 
 # Pagination
 
-WALLPAPER_PEGINATION_PER_PAGE = 3
+WALLPAPER_PEGINATION_PER_PAGE = 9
 
 
 # Wallpaper Upload

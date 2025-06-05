@@ -186,3 +186,5 @@ temp_*
 uploads/
 .vscode/
 private/
+public/
+media/

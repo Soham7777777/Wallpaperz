@@ -19,7 +19,7 @@ class Wallpaper(AbstractBaseModel):
         blank=True,
         editable=False,
         upload_to=UniqueFilePathGenerator(
-            PurePath('wallpapers/compressed'),
+            PurePath('compressed'),
             'image'
         ),
         validators=[

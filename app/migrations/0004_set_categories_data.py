@@ -4,7 +4,6 @@ from pathlib import Path
 from django.conf import settings
 from django.db import migrations
 from common.data_migration_utils import DeleteHistoricalModelData
-from common.image_utils import get_file_extensions_for_image_format, ImageFormat
 from django.apps.registry import Apps
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 from django.core.files.images import ImageFile
@@ -22,7 +21,6 @@ def set_categories_data(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> 
     Category = apps.get_model('app', 'Category')
     Wallpaper = apps.get_model('app', 'Wallpaper')
 
-    jpeg_extensions = get_file_extensions_for_image_format(ImageFormat.JPEG)
     wallpapers: QuerySet[Any] = Wallpaper.objects.all()
 
     abstract_wallpapers = wallpapers[0:5]
